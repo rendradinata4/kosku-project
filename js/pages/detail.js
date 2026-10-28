@@ -197,7 +197,12 @@ fetch("data/kos.json")
     });
 
     // Peta lokasi
-    const map = L.map("dmap").setView([k.lat, k.lng], 16);
+    // Di HP, peta tidak boleh "menangkap" geseran jari, kalau tidak halaman
+    // jadi tidak bisa di-scroll saat jari mendarat di atas peta.
+    const map = L.map("dmap", {
+      dragging: !L.Browser.mobile, // geser peta dengan 1 jari: hanya di desktop
+      tap: !L.Browser.mobile, // fitur tap bawaan Leaflet untuk perangkat sentuh lama
+    }).setView([k.lat, k.lng], 16);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution: "&copy; kontributor OpenStreetMap",

@@ -8,6 +8,10 @@
   --hi: #dee8ff;
   --ink: #121c2c;
   --mut: #5a687c;
+  --bar-h: 64px; /* tinggi tab bar bawah di HP */
+}
+html {
+  -webkit-text-size-adjust: 100%; /* cegah iOS memperbesar teks sendiri saat HP diputar */
 }
 * {
   box-sizing: border-box;
@@ -707,14 +711,185 @@ h2 {
   color: var(--mut);
 }
 
-@media (max-width: 640px) {
-  .nav a:first-child {
-    display: none;
+/* ===== Mobile & tablet (di bawah 1024px) ===== */
+@media (max-width: 1023px) {
+  /* Ruang untuk tab bar bawah */
+  body {
+    padding-bottom: var(--bar-h);
+  }
+
+  /* backdrop-filter dimatikan: kalau aktif, elemen fixed di dalam header
+     (tab bar) terkunci ke header, bukan ke layar */
+  .header {
+    background: #fff;
+    backdrop-filter: none;
   }
   .left {
-    gap: 0.5rem;
+    gap: 0;
+  }
+
+  /* Navigasi pindah ke tab bar di bawah layar */
+  .nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    height: var(--bar-h);
+    padding: 6px 8px;
+    gap: 4px;
+    background: #fff;
+    border-top: 1px solid #0000000f;
+    box-shadow: 0 -2px 12px #0000000d;
+  }
+  .nav a {
+    position: relative;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px;
+    font-size: 0.7rem;
+    border-radius: 12px;
+  }
+  .nav a::before {
+    font-family: "Material Symbols Outlined";
+    font-size: 24px;
+    line-height: 1;
+    font-variation-settings: "FILL" 0;
+  }
+  .nav a.on::before {
+    font-variation-settings: "FILL" 1;
+  }
+  .nav a[href="index.html"]::before {
+    content: "home";
+  }
+  .nav a[href="cari.html"]::before {
+    content: "search";
+  }
+  .nav a[href="favorit.html"]::before {
+    content: "favorite";
+  }
+  /* Badge jumlah favorit menempel di pojok ikon (hijau supaya terlihat di latar putih) */
+  .nav .badge {
+    position: absolute;
+    top: 0;
+    left: calc(50% + 6px);
+    min-width: 18px;
+    padding: 0 5px;
+    background: var(--p);
+    color: #fff;
+    text-align: center;
+    font-size: 0.65rem;
+    line-height: 18px;
   }
 }
+
+@media (max-width: 639px) {
+  .container {
+    padding: 0 1rem;
+  }
+  .brand {
+    font-size: 1.15rem;
+  }
+
+  /* Hero lebih ringkas */
+  .hero {
+    padding: 2.25rem 0 2rem;
+  }
+  .hero-head {
+    margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  .sub {
+    font-size: 0.95rem;
+  }
+  .pill {
+    font-size: 0.68rem;
+    padding: 0.35rem 0.85rem;
+  }
+
+  /* Kolom input & dropdown: 16px mencegah iOS zoom otomatis saat difokus */
+  .field input,
+  .field select {
+    font-size: 16px;
+  }
+  .chips a {
+    padding: 0.5rem 0.9rem; /* area sentuh lebih besar */
+  }
+
+  /* Kartu angka ringkasan: lebih rapat supaya "26 Kamar" tidak patah baris */
+  .metrics {
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+  .metric {
+    padding: 0.8rem;
+    gap: 0.6rem;
+  }
+  .mi {
+    width: 38px;
+    height: 38px;
+  }
+  .metric strong {
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  /* Section & kartu */
+  h2 {
+    font-size: 1.5rem;
+  }
+  .section {
+    padding: 3rem 1rem 0;
+  }
+  .shead {
+    margin-bottom: 1.5rem;
+  }
+  .features {
+    padding: 3rem 0;
+    margin-top: 3rem;
+  }
+  .fhead {
+    margin-bottom: 2rem;
+  }
+  .fcard {
+    padding: 1.5rem;
+  }
+  .teaser {
+    margin: 3rem auto;
+    padding: 0 1rem;
+  }
+  .tcard {
+    padding: 1.5rem;
+  }
+  .heart {
+    width: 40px;
+    height: 40px; /* min. ~40px agar mudah ditap jempol */
+  }
+}
+
+/* Layar sentuh: matikan efek hover yang "menempel" setelah ditap */
+@media (hover: none) {
+  .card:hover {
+    transform: none;
+    box-shadow: 0 2px 10px #00000008;
+  }
+  .card:hover .thumb img {
+    transform: none;
+  }
+  .nav a:hover {
+    background: none;
+    color: var(--mut);
+  }
+  .nav a.on:hover {
+    background: var(--sc);
+    color: var(--on);
+  }
+}
+
 @media (min-width: 640px) {
   .metrics {
     grid-template-columns: repeat(4, 1fr);

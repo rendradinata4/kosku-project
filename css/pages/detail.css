@@ -672,3 +672,67 @@ aside {
   background: var(--sc);
   color: var(--on);
 }
+
+/* ===== Mobile & tablet (di bawah 1024px) ===== */
+@media (max-width: 1023px) {
+  /* Di halaman detail, tab bar bawah diganti tombol WhatsApp yang selalu terlihat */
+  .nav {
+    display: none;
+  }
+  body {
+    padding-bottom: 0;
+  }
+  main {
+    padding-top: 84px;
+    padding-bottom: 104px; /* ruang agar konten terakhir tidak tertutup tombol WhatsApp */
+  }
+  .wrap {
+    padding: 0 16px;
+  }
+
+  /* Galeri lebih pendek supaya info penting lebih cepat terlihat */
+  .gal {
+    margin-bottom: 20px;
+  }
+  .gal-main {
+    height: 220px;
+  }
+  .gal-sub {
+    height: 110px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+  .card {
+    padding: 18px;
+  }
+  .iconbtn {
+    width: 40px;
+    height: 40px;
+  }
+  .tab {
+    padding: 12px 6px;
+  }
+  .btn {
+    padding: 14px;
+  }
+
+  /* Kartu harga tidak perlu "menempel" saat scroll di layout 1 kolom */
+  .book {
+    position: static;
+  }
+
+  /* Tombol WhatsApp menempel di bawah layar */
+  .btn-wa {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    width: auto;
+    z-index: 1000;
+    padding: 15px;
+    font-size: 0.95rem;
+    box-shadow: 0 8px 24px #00a86b66;
+  }
+}

@@ -125,6 +125,23 @@ function search(q) {
   } else render();
 }
 
+// --- Ganti tampilan Daftar <-> Peta (khusus HP & tablet) ---
+const split = $(".split"); // pembungkus daftar + peta
+const mapToggle = $("#mapToggle"); // tombol "Peta" / "Daftar"
+// true jika layar lebih sempit dari 1024px (sama dengan batas di cari.css)
+const isMobile = () => window.matchMedia("(max-width: 1023px)").matches;
+
+function setMapView(on) {
+  split.classList.toggle("show-map", on); // pasang/lepas class; CSS yang menampilkan peta
+  mapToggle.setAttribute("aria-pressed", on); // info untuk screen reader
+  mapToggle.querySelector(".toggle-icon").textContent = on ? "list" : "map"; // ganti ikon
+  mapToggle.querySelector(".toggle-label").textContent = on ? "Daftar" : "Peta"; // ganti teks
+  if (on) Maps.map.invalidateSize(); // suruh Leaflet menghitung ulang ukuran petanya
+}
+mapToggle.addEventListener("click", () => {
+  setMapView(!split.classList.contains("show-map")); // kalau sedang peta -> daftar, dan sebaliknya
+});
+
 // --- Dropdown generik ---
 function closeDropdowns() {
   $$(".dropdown.open").forEach((d) => d.classList.remove("open"));
@@ -237,6 +254,7 @@ $("#cards").addEventListener("click", (e) => {
   const c = e.target.closest(".kos-card");
   if (!c) return;
   selectCard(c.dataset.id);
+  if (isMobile()) setMapView(true); // di HP, peta tersembunyi, jadi tampilkan dulu
   Maps.focus(c.dataset.id);
 });
 

@@ -642,3 +642,159 @@ main {
     width: 60%;
   }
 }
+
+/* Tombol ganti Daftar/Peta: disembunyikan di desktop (daftar & peta sudah berdampingan) */
+.map-toggle {
+  display: none;
+}
+
+/* ===== Mobile & tablet (di bawah 1024px) ===== */
+@media (max-width: 1023px) {
+  /* --- Filter bar --- */
+  .filter-sticky-bar {
+    top: 72px; /* menempel DI BAWAH header, bukan tertutup header */
+    padding: 12px 16px 8px;
+    background: var(--bg);
+    backdrop-filter: none; /* kalau aktif, menu dropdown (position: fixed) ikut terkunci di dalam bar */
+  }
+  .filter-header-row {
+    flex-wrap: nowrap;
+    margin-bottom: 8px;
+  }
+  .title-count {
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+  .tag-pill {
+    display: none; /* "Surabaya" sudah jelas dari header, hemat tempat */
+  }
+  .pills-row {
+    margin: 0 -16px; /* pill boleh digeser sampai tepi layar */
+    padding: 0 16px 6px;
+  }
+
+  /* --- Ukuran sentuh minimal ~40px --- */
+  .dropdown > button,
+  .chip {
+    min-height: 40px;
+    padding: 8px 14px;
+    font-size: 0.82rem;
+  }
+  .btn-fav {
+    width: 40px;
+    height: 40px;
+  }
+  .btn-wa-mini {
+    width: 40px;
+    height: 40px;
+  }
+  .btn-action-primary {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 16px;
+    font-size: 0.8rem;
+  }
+  .reset {
+    padding: 8px 0;
+  }
+
+  /* --- Menu dropdown jadi "bottom sheet" ---
+     Sebelumnya menu Tipe & Harga terpotong karena berada di dalam .pills-row
+     yang bisa di-scroll. position: fixed membuatnya lepas dari pemotongan itu. */
+  .dropdown .menu,
+  #sortDD .menu {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    top: auto;
+    bottom: calc(var(--bar-h) + 12px);
+    min-width: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: 16px;
+    padding: 8px;
+  }
+  .dropdown .menu button {
+    padding: 14px 12px;
+    font-size: 0.95rem;
+  }
+  .dropdown .menu.wide {
+    padding: 14px;
+  }
+  .hrow select {
+    min-width: 0; /* boleh mengecil agar tidak keluar dari kotak menu */
+    padding: 12px 10px;
+    font-size: 16px; /* cegah iOS zoom otomatis */
+  }
+  .apply {
+    padding: 14px;
+    font-size: 0.95rem;
+  }
+  /* Latar gelap di belakang menu yang terbuka; tap di sini menutup menu */
+  .dropdown.open::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: #00000059;
+    z-index: -1;
+  }
+
+  /* --- Kartu --- */
+  .cards-container {
+    padding: 12px 16px 96px; /* bawah lega agar tidak tertutup tombol Peta */
+  }
+  .card-thumb-wrap {
+    height: 190px;
+  }
+
+  /* --- Peta: layar penuh, muncul saat tombol "Peta" ditekan --- */
+  .map-panel {
+    position: fixed;
+    inset: 72px 0 var(--bar-h) 0; /* di antara header dan tab bar */
+    width: auto;
+    height: auto;
+    z-index: 900;
+    visibility: hidden; /* disembunyikan tapi ukurannya tetap ada agar Leaflet tidak bingung */
+  }
+  .split.show-map .map-panel {
+    visibility: visible;
+  }
+
+  .map-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(var(--bar-h) + 16px);
+    z-index: 950; /* di atas peta (900), di bawah header & tab bar (1000) */
+    min-height: 46px;
+    padding: 0 22px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    box-shadow: var(--shxl);
+  }
+  .map-toggle .material-symbols-outlined {
+    font-size: 20px;
+  }
+  /* Sembunyikan tombol saat menu filter terbuka supaya tidak menimpa menu */
+  body:has(.dropdown.open) .map-toggle {
+    display: none;
+  }
+}
+
+/* Layar sentuh: matikan efek hover yang "menempel" setelah ditap */
+@media (hover: none) {
+  .kos-card:hover {
+    transform: none;
+    box-shadow: var(--shs);
+  }
+  .kos-card:hover .card-thumb-img {
+    transform: none;
+  }
+}

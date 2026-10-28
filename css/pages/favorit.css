@@ -496,3 +496,68 @@ h1 {
 .toast .material-symbols-outlined {
   color: var(--sc);
 }
+
+/* ===== Mobile & tablet (di bawah 1024px) ===== */
+/* Penyebab halaman bisa digeser ke samping: lingkaran dekoratif .glow (lebar 380px)
+   keluar dari layar. overflow-x: hidden memotong semua yang melewati tepi layar. */
+main {
+  overflow-x: hidden;
+}
+
+@media (max-width: 1023px) {
+  main {
+    padding-top: 88px;
+  }
+  .wrap {
+    padding: 0 16px 40px;
+  }
+  .ftabs {
+    max-width: 100%;
+    scrollbar-width: none; /* sembunyikan scrollbar tab (Firefox) */
+  }
+  .ftabs::-webkit-scrollbar {
+    display: none; /* sembunyikan scrollbar tab (Chrome/Safari) */
+  }
+  .ftab {
+    padding: 10px 16px; /* area sentuh lebih besar */
+  }
+
+  /* Toast naik di atas tab bar (sebelumnya tertutup tab bar) dan melebar penuh */
+  .toast {
+    left: 16px;
+    right: 16px;
+    bottom: calc(var(--bar-h) + 16px);
+    z-index: 1100;
+  }
+}
+
+@media (max-width: 680px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+  .filterbar {
+    padding: 10px 12px;
+  }
+  .rmfav {
+    width: 40px;
+    height: 40px;
+  }
+  .btn-detail {
+    padding: 12px;
+  }
+  .btn-wa-mini {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Layar sentuh: matikan efek hover yang "menempel" setelah ditap */
+@media (hover: none) {
+  .card:hover {
+    transform: none;
+    box-shadow: var(--shm);
+  }
+  .card:hover .thumb img {
+    transform: none;
+  }
+}
