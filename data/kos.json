@@ -9,22 +9,15 @@
     "lng": 112.7858,
     "rating": 4.8,
     "sisaKamar": 3,
-    "gambarUtama": "https://picsum.photos/seed/kos1/600/400",
-    "fasilitas": [
-      "AC",
-      "Kamar Mandi Dalam",
-      "Wi-Fi",
-      "Kasur"
+    "gambarUtama": "https://i.pinimg.com/1200x/26/10/70/261070a7a4519aebd064e35ba16a10ad.jpg",
+    "foto": [
+      "https://i.pinimg.com/1200x/26/10/70/261070a7a4519aebd064e35ba16a10ad.jpg",
+      "https://furnizing.com/assets/files/img/1707200629.jpg",
+      "http://vansilkhome.com/cdn/shop/articles/01_f2e06389-19ec-4601-b09e-d94d2a7fd256.jpg"
     ],
-    "bersama": [
-      "Dapur",
-      "Parkir motor",
-      "Mesin cuci"
-    ],
-    "aturan": [
-      "Khusus putri",
-      "Tamu maksimal pukul 21.00"
-    ],
+    "fasilitas": ["AC", "Kamar Mandi Dalam", "Wi-Fi", "Kasur"],
+    "bersama": ["Dapur", "Parkir motor", "Mesin cuci"],
+    "aturan": ["Khusus putri", "Tamu maksimal pukul 21.00"],
     "jarakTerdekat": "300m dari Kampus C Unair",
     "noWhatsapp": "6281200000431"
   },
@@ -38,20 +31,14 @@
     "lng": 112.7948,
     "rating": 4.5,
     "sisaKamar": 5,
-    "gambarUtama": "https://picsum.photos/seed/kos2/600/400",
-    "fasilitas": [
-      "Wi-Fi",
-      "Kasur",
-      "Lemari"
+    "gambarUtama": "https://i.pinimg.com/736x/ce/43/38/ce4338a47867b9a9f19b0d7aee776486.jpg",
+    "foto": [
+      "https://i.pinimg.com/736x/ce/43/38/ce4338a47867b9a9f19b0d7aee776486.jpg",
+      "https://evolveartisanal.com/wp-content/uploads/2021/07/7_Go-All-Out-With-Silver-Modern-Bedroom-Interior-Design-870x1024.jpg"
     ],
-    "bersama": [
-      "Ruang tamu",
-      "Parkir motor"
-    ],
-    "aturan": [
-      "Khusus putra",
-      "Jam malam 23.00"
-    ],
+    "fasilitas": ["Wi-Fi", "Kasur", "Lemari"],
+    "bersama": ["Ruang tamu", "Parkir motor"],
+    "aturan": ["Khusus putra", "Jam malam 23.00"],
     "jarakTerdekat": "700m dari ITS",
     "noWhatsapp": "6281200111365"
   },
@@ -65,23 +52,14 @@
     "lng": 112.8017,
     "rating": 4.7,
     "sisaKamar": 2,
-    "gambarUtama": "https://picsum.photos/seed/kos3/600/400",
-    "fasilitas": [
-      "AC",
-      "Kamar Mandi Dalam",
-      "Wi-Fi",
-      "Kasur",
-      "Lemari"
+    "gambarUtama": "https://i.pinimg.com/736x/52/57/1d/52571d66ff47b63ba2013fdd75921de2.jpg",
+    "foto": [
+      "https://i.pinimg.com/736x/52/57/1d/52571d66ff47b63ba2013fdd75921de2.jpg",
+      "https://furnizing.com/assets/files/img/1707200629.jpg"
     ],
-    "bersama": [
-      "Dapur",
-      "Parkir mobil",
-      "Laundry"
-    ],
-    "aturan": [
-      "Tamu lawan jenis di ruang tamu",
-      "Dilarang merokok di kamar"
-    ],
+    "fasilitas": ["AC", "Kamar Mandi Dalam", "Wi-Fi", "Kasur", "Lemari"],
+    "bersama": ["Dapur", "Parkir mobil", "Laundry"],
+    "aturan": ["Tamu lawan jenis di ruang tamu", "Dilarang merokok di kamar"],
     "jarakTerdekat": "1 km dari ITS",
     "noWhatsapp": "6281200222726"
   },
@@ -95,21 +73,13 @@
     "lng": 112.752,
     "rating": 4.4,
     "sisaKamar": 4,
-    "gambarUtama": "https://picsum.photos/seed/kos4/600/400",
-    "fasilitas": [
-      "AC",
-      "Wi-Fi",
-      "Kasur",
-      "Lemari"
+    "gambarUtama": "https://i.pinimg.com/736x/9e/07/41/9e0741c2a647c1313edc0759f460f3dc.jpg",
+    "foto": [
+      "https://i.pinimg.com/736x/9e/07/41/9e0741c2a647c1313edc0759f460f3dc.jpg"
     ],
-    "bersama": [
-      "Dapur",
-      "Jemuran"
-    ],
-    "aturan": [
-      "Khusus putri",
-      "Jam malam 22.00"
-    ],
+    "fasilitas": ["AC", "Wi-Fi", "Kasur", "Lemari"],
+    "bersama": ["Dapur", "Jemuran"],
+    "aturan": ["Khusus putri", "Jam malam 22.00"],
     "jarakTerdekat": "600m dari Stasiun Gubeng",
     "noWhatsapp": "6281200334099"
   },
@@ -123,21 +93,13 @@
     "lng": 112.737,
     "rating": 4.6,
     "sisaKamar": 1,
-    "gambarUtama": "https://picsum.photos/seed/kos5/600/400",
-    "fasilitas": [
-      "AC",
-      "Kamar Mandi Dalam",
-      "Kasur",
-      "Lemari"
+    "gambarUtama": "https://i.pinimg.com/1200x/d3/70/f5/d370f56b597b534f5c6030f88ffb9464.jpg",
+    "foto": [
+      "https://i.pinimg.com/1200x/d3/70/f5/d370f56b597b534f5c6030f88ffb9464.jpg"
     ],
-    "bersama": [
-      "Parkir mobil",
-      "Ruang santai"
-    ],
-    "aturan": [
-      "Khusus putra",
-      "Dilarang membawa hewan"
-    ],
+    "fasilitas": ["AC", "Kamar Mandi Dalam", "Kasur", "Lemari"],
+    "bersama": ["Parkir mobil", "Ruang santai"],
+    "aturan": ["Khusus putra", "Dilarang membawa hewan"],
     "jarakTerdekat": "800m dari RS Darmo",
     "noWhatsapp": "6281200444593"
   },
@@ -151,18 +113,13 @@
     "lng": 112.737,
     "rating": 4.1,
     "sisaKamar": 6,
-    "gambarUtama": "https://picsum.photos/seed/kos6/600/400",
-    "fasilitas": [
-      "Kasur",
-      "Lemari"
+    "gambarUtama": "https://i.pinimg.com/736x/6c/ef/8d/6cef8d0a55eb48b1715b49f60bd9cefb.jpg",
+    "foto": [
+      "https://i.pinimg.com/736x/6c/ef/8d/6cef8d0a55eb48b1715b49f60bd9cefb.jpg"
     ],
-    "bersama": [
-      "Kamar mandi luar",
-      "Parkir motor"
-    ],
-    "aturan": [
-      "Tamu lapor pengelola"
-    ],
+    "fasilitas": ["Kasur", "Lemari"],
+    "bersama": ["Kamar mandi luar", "Parkir motor"],
+    "aturan": ["Tamu lapor pengelola"],
     "jarakTerdekat": "500m dari Terminal Joyoboyo",
     "noWhatsapp": "6281200555729"
   },
@@ -176,21 +133,13 @@
     "lng": 112.7885,
     "rating": 4.3,
     "sisaKamar": 3,
-    "gambarUtama": "https://picsum.photos/seed/kos7/600/400",
-    "fasilitas": [
-      "AC",
-      "Wi-Fi",
-      "Kasur",
-      "Lemari"
+    "gambarUtama": "https://i.pinimg.com/1200x/e9/64/11/e964114cb78d7a27b011da140a27bd16.jpg",
+    "foto": [
+      "https://i.pinimg.com/1200x/e9/64/11/e964114cb78d7a27b011da140a27bd16.jpg"
     ],
-    "bersama": [
-      "Dapur",
-      "Mesin cuci"
-    ],
-    "aturan": [
-      "Khusus putri",
-      "Jam malam 22.00"
-    ],
+    "fasilitas": ["AC", "Wi-Fi", "Kasur", "Lemari"],
+    "bersama": ["Dapur", "Mesin cuci"],
+    "aturan": ["Khusus putri", "Jam malam 22.00"],
     "jarakTerdekat": "400m dari UPN Veteran Jatim",
     "noWhatsapp": "6281200667606"
   },
@@ -204,21 +153,13 @@
     "lng": 112.759,
     "rating": 4.5,
     "sisaKamar": 2,
-    "gambarUtama": "https://picsum.photos/seed/kos8/600/400",
-    "fasilitas": [
-      "AC",
-      "Kamar Mandi Dalam",
-      "Wi-Fi",
-      "Kasur"
+    "gambarUtama": "https://i.pinimg.com/1200x/b0/0e/d4/b00ed4f6f8bdf5f13f2bd67628b68a3d.jpg",
+    "foto": [
+      "https://i.pinimg.com/1200x/b0/0e/d4/b00ed4f6f8bdf5f13f2bd67628b68a3d.jpg"
     ],
-    "bersama": [
-      "Parkir motor",
-      "Ruang belajar"
-    ],
-    "aturan": [
-      "Khusus putra",
-      "Dilarang merokok"
-    ],
+    "fasilitas": ["AC", "Kamar Mandi Dalam", "Wi-Fi", "Kasur"],
+    "bersama": ["Parkir motor", "Ruang belajar"],
+    "aturan": ["Khusus putra", "Dilarang merokok"],
     "jarakTerdekat": "500m dari Universitas Kristen Petra",
     "noWhatsapp": "6281200778425"
   }
