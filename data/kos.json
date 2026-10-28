@@ -19,7 +19,7 @@
     "bersama": ["Dapur", "Parkir motor", "Mesin cuci"],
     "aturan": ["Khusus putri", "Tamu maksimal pukul 21.00"],
     "jarakTerdekat": "300m dari Kampus C Unair",
-    "noWhatsapp": "6281200000431"
+    "noWhatsapp": "6281575742967"
   },
   {
     "id": "kos-002",
@@ -40,7 +40,7 @@
     "bersama": ["Ruang tamu", "Parkir motor"],
     "aturan": ["Khusus putra", "Jam malam 23.00"],
     "jarakTerdekat": "700m dari ITS",
-    "noWhatsapp": "6281200111365"
+    "noWhatsapp": "6281575742967"
   },
   {
     "id": "kos-003",
@@ -61,7 +61,7 @@
     "bersama": ["Dapur", "Parkir mobil", "Laundry"],
     "aturan": ["Tamu lawan jenis di ruang tamu", "Dilarang merokok di kamar"],
     "jarakTerdekat": "1 km dari ITS",
-    "noWhatsapp": "6281200222726"
+    "noWhatsapp": "6281575742967"
   },
   {
     "id": "kos-004",
@@ -81,7 +81,7 @@
     "bersama": ["Dapur", "Jemuran"],
     "aturan": ["Khusus putri", "Jam malam 22.00"],
     "jarakTerdekat": "600m dari Stasiun Gubeng",
-    "noWhatsapp": "6281200334099"
+    "noWhatsapp": "6281575742967"
   },
   {
     "id": "kos-005",
@@ -101,7 +101,7 @@
     "bersama": ["Parkir mobil", "Ruang santai"],
     "aturan": ["Khusus putra", "Dilarang membawa hewan"],
     "jarakTerdekat": "800m dari RS Darmo",
-    "noWhatsapp": "6281200444593"
+    "noWhatsapp": "6281575742967"
   },
   {
     "id": "kos-006",
@@ -121,7 +121,7 @@
     "bersama": ["Kamar mandi luar", "Parkir motor"],
     "aturan": ["Tamu lapor pengelola"],
     "jarakTerdekat": "500m dari Terminal Joyoboyo",
-    "noWhatsapp": "6281200555729"
+    "noWhatsapp": "6281575742967"
   },
   {
     "id": "kos-007",
@@ -141,7 +141,7 @@
     "bersama": ["Dapur", "Mesin cuci"],
     "aturan": ["Khusus putri", "Jam malam 22.00"],
     "jarakTerdekat": "400m dari UPN Veteran Jatim",
-    "noWhatsapp": "6281200667606"
+    "noWhatsapp": "6281575742967"
   },
   {
     "id": "kos-008",
@@ -161,6 +161,6 @@
     "bersama": ["Parkir motor", "Ruang belajar"],
     "aturan": ["Khusus putra", "Dilarang merokok"],
     "jarakTerdekat": "500m dari Universitas Kristen Petra",
-    "noWhatsapp": "6281200778425"
+    "noWhatsapp": "6281575742967"
   }
 ]
