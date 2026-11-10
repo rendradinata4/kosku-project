@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+  <title>Form Kos – RuangNyaman</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/transitions.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="left">
+        <a class="brand" href="index.html"><img class="brand-logo" src="img/logo.png" alt="" width="36"
+            height="36" />Ruang<span>Nyaman</span></a>
+        <nav class="nav">
+          <a href="index.html">Beranda</a>
+          <a href="cari.html">Cari Kos</a>
+          <a href="favorit.html">Favorit</a>
+        </nav>
+      </div>
+      <div class="auth-nav" id="authNav"></div>
+    </div>
+  </header>
+
+  <main class="dash-main">
+    <div class="dash-wrap" id="app">
+      <div class="dash-head">
+        <div>
+          <h1 id="judul">Tambah Kos</h1>
+          <p class="dash-sub"><a href="dashboard.html">← Kembali ke dashboard</a></p>
+        </div>
+      </div>
+      <p class="dash-notif error" id="alasan" hidden></p>
+      <p class="dash-notif" id="msg" role="alert" hidden></p>
+
+      <div id="formWrap" hidden>
+        <section class="form-card">
+          <h2>Informasi kos</h2>
+          <label class="f-field">Nama kos
+            <input name="nama" maxlength="120" placeholder="Contoh: Kos Mawar Asri" />
+          </label>
+          <label class="f-field">Tipe kos
+            <select name="tipe">
+              <option value="">Pilih tipe…</option>
+              <option>Putra</option>
+              <option>Putri</option>
+              <option>Campur</option>
+            </select>
+          </label>
+          <label class="f-field">Alamat lengkap
+            <input name="alamat" maxlength="200" placeholder="Jl. Mulyorejo No. 45, Surabaya" />
+          </label>
+          <label class="f-field">Jarak ke tempat terdekat (opsional)
+            <input name="jarak_terdekat" maxlength="120" placeholder="300m dari Kampus C Unair" />
+          </label>
+          <label class="f-field">Nomor WhatsApp
+            <input name="no_whatsapp" inputmode="tel" placeholder="081234567890" />
+            <small>Dipakai tombol "Hubungi via WhatsApp". Wajib diisi saat mengajukan.</small>
+          </label>
+          <label class="f-field">Deskripsi (opsional)
+            <textarea name="deskripsi" rows="4" maxlength="1000"></textarea>
+          </label>
+        </section>
+
+        <section class="form-card">
+          <h2>Lokasi di peta</h2>
+          <p class="f-hint">Klik peta untuk menaruh penanda, atau geser penanda ke titik yang tepat.</p>
+          <div id="pilihMap"></div>
+          <p class="f-hint">Koordinat: <b id="koordinat">belum dipilih</b></p>
+        </section>
+
+        <section class="form-card">
+          <h2>Fasilitas</h2>
+          <div id="fasilitas"></div>
+        </section>
+
+        <section class="form-card">
+          <h2>Aturan kos</h2>
+          <div id="aturanList"></div>
+          <button type="button" class="dash-btn ghost" id="btnTambahAturan">+ Tambah aturan</button>
+        </section>
+
+        <section class="form-card">
+          <h2>Kamar</h2>
+          <p class="f-hint">Setiap kamar punya nomor, harga per bulan, dan status. "Sisa kamar" dan harga "mulai dari"
+            di situs dihitung dari sini.</p>
+          <p class="f-hint" id="kamarKosong">Belum ada kamar.</p>
+          <div class="tabel-scroll">
+            <table class="kamar-tabel" id="kamarTabel" hidden>
+              <thead>
+                <tr>
+                  <th>Nomor</th>
+                  <th>Harga / bulan (Rp)</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="kamarBody"></tbody>
+            </table>
+          </div>
+          <div class="f-row">
+            <button type="button" class="dash-btn ghost" id="btnTambahKamar">+ Tambah kamar</button>
+            <button type="button" class="dash-btn ghost" id="btnSamakanHarga">Samakan harga semua kamar</button>
+          </div>
+        </section>
+
+        <section class="form-card">
+          <h2>Foto</h2>
+          <p class="f-hint">Unggah 1 sampai 10 foto (JPG, PNG, atau WebP). Foto pertama menjadi foto utama. Foto
+            diperkecil otomatis sebelum diunggah, dan baru tersimpan saat Anda menekan tombol simpan.</p>
+          <div class="foto-grid" id="fotoGrid"></div>
+          <p class="f-hint" id="fotoKosong">Belum ada foto.</p>
+          <label class="dash-btn ghost" for="fotoInput">+ Pilih foto</label>
+          <input type="file" id="fotoInput" accept="image/jpeg,image/png,image/webp" multiple hidden />
+        </section>
+
+        <div class="f-actions">
+          <button type="button" class="dash-btn ghost" id="btnDraft" data-simpan>Simpan draft</button>
+          <button type="button" class="dash-btn" id="btnAjukan" data-simpan>Simpan &amp; ajukan ke admin</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
+  <script src="js/core/supabase.js"></script>
+  <script src="js/core/util.js"></script>
+  <script src="js/core/auth.js"></script>
+  <script src="js/core/owner.js"></script>
+  <script src="js/pages/form-kos.js"></script>
+</body>
+
+</html>

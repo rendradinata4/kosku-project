@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    />
+    <title>Dashboard Admin – RuangNyaman</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/transitions.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <div class="left">
+          <a class="brand" href="index.html"
+            ><img class="brand-logo" src="img/logo.png" alt="" width="36" height="36" />Ruang<span>Nyaman</span></a
+          >
+          <nav class="nav">
+            <a href="index.html">Beranda</a>
+            <a href="cari.html">Cari Kos</a>
+            <a href="favorit.html">Favorit</a>
+          </nav>
+        </div>
+        <div class="auth-nav" id="authNav"></div>
+      </div>
+    </header>
+
+    <main class="dash-main">
+      <div class="dash-wrap" id="app">
+        <div class="dash-head">
+          <div>
+            <h1>Dashboard Admin</h1>
+            <p class="dash-sub">Periksa kos yang diajukan, kelola fasilitas, dan atur peran pengguna.</p>
+          </div>
+        </div>
+
+        <div class="adm-tabs" role="tablist">
+          <button type="button" class="adm-tab active" data-tab="antrean">Antrean <span class="adm-count" id="cAntrean">0</span></button>
+          <button type="button" class="adm-tab" data-tab="kos">Semua Kos</button>
+          <button type="button" class="adm-tab" data-tab="fasilitas">Fasilitas</button>
+          <button type="button" class="adm-tab" data-tab="pengguna">Pengguna</button>
+        </div>
+
+        <p class="dash-notif" id="notif" role="status" hidden></p>
+        <div id="panel">Memuat…</div>
+      </div>
+    </main>
+
+    <dialog class="adm-dialog" id="dlgTolak">
+      <h2 id="judulTolak">Tolak kos</h2>
+      <p class="f-hint">Alasan ini akan dilihat pemilik agar ia bisa memperbaiki kosnya.</p>
+      <textarea id="alasanTolak" rows="4" maxlength="500" placeholder="Contoh: Foto kamar kurang jelas, mohon unggah foto yang lebih terang."></textarea>
+      <p class="dash-notif error" id="errTolak" hidden></p>
+      <div class="f-actions">
+        <button type="button" class="dash-btn ghost" id="btnBatalTolak">Batal</button>
+        <button type="button" class="dash-btn danger" id="btnOkTolak">Tolak kos</button>
+      </div>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
+    <script src="js/core/supabase.js"></script>
+    <script src="js/core/util.js"></script>
+    <script src="js/core/auth.js"></script>
+    <script src="js/core/owner.js"></script>
+    <script src="js/core/admin.js"></script>
+    <script src="js/pages/admin.js"></script>
+  </body>
+</html>

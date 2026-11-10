@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Masuk – RuangNyaman</title>
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <link rel="stylesheet" href="css/transitions.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <div class="left">
+          <a class="brand" href="index.html"
+            ><img class="brand-logo" src="img/logo.png" alt="" width="36" height="36" />Ruang<span>Nyaman</span></a
+          >
+          <nav class="nav">
+            <a href="index.html">Beranda</a>
+            <a href="cari.html">Cari Kos</a>
+            <a href="favorit.html">Favorit</a>
+          </nav>
+        </div>
+        <div class="city">
+          <span class="material-symbols-outlined">location_on</span>Surabaya
+        </div>
+      </div>
+    </header>
+
+    <main class="auth-main">
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button type="button" class="auth-tab active" data-tab="masuk">Masuk</button>
+          <button type="button" class="auth-tab" data-tab="daftar">Daftar</button>
+        </div>
+
+        <p class="auth-msg" id="msg" role="alert" hidden></p>
+
+        <form class="auth-form" id="formMasuk">
+          <label class="auth-field">Email
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label class="auth-field">Password
+            <input type="password" name="password" autocomplete="current-password" required />
+          </label>
+          <button type="submit" class="auth-submit">Masuk</button>
+        </form>
+
+        <form class="auth-form" id="formDaftar" hidden>
+          <label class="auth-field">Nama lengkap
+            <input type="text" name="nama" autocomplete="name" required />
+          </label>
+          <label class="auth-field">Email
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label class="auth-field">No. telepon (opsional)
+            <input type="tel" name="telepon" autocomplete="tel" />
+          </label>
+          <label class="auth-field">Password (minimal 6 karakter)
+            <input type="password" name="password" autocomplete="new-password" minlength="6" required />
+          </label>
+          <label class="auth-check">
+            <input type="checkbox" name="pemilik" />
+            <span>Saya pemilik kos dan ingin memasang kos saya di RuangNyaman</span>
+          </label>
+          <button type="submit" class="auth-submit">Daftar</button>
+        </form>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
+    <script src="js/core/supabase.js"></script>
+    <script src="js/core/auth.js"></script>
+    <script src="js/pages/masuk.js"></script>
+  </body>
+</html>

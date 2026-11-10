@@ -1,118 +1,105 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Kos Favorit Saya – RuangNyaman</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-    />
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/pages/favorit.css" />
-    <link rel="stylesheet" href="css/transitions.css" />
-    <link rel="icon" type="image/png" href="img/favicon.png" />
-    <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
-  </head>
-  <body>
-    <header class="header">
-      <div class="header-inner">
-        <div class="left">
-          <a class="brand" href="index.html"><img class="brand-logo" src="img/logo.png" alt="" width="36" height="36" />Ruang<span>Nyaman</span></a>
-          <nav class="nav">
-            <a href="index.html">Beranda</a><a href="cari.html">Cari Kos</a
-            ><a class="on" href="favorit.html"
-              >Favorit <span class="badge" id="favCount">0</span></a
-            >
-          </nav>
-        </div>
-        <form class="hsearch" action="cari.html">
-          <span class="material-symbols-outlined">search</span>
-          <input
-            name="q"
-            placeholder="Cari lokasi, kampus, atau nama kos"
-            aria-label="Cari kos"
-          />
-        </form>
-        <div class="city">
-          <span class="material-symbols-outlined">location_on</span>Surabaya
-        </div>
-      </div>
-    </header>
 
-    <main>
-      <div class="glow"></div>
-      <div class="glow b"></div>
-      <div class="wrap">
-        <nav class="crumb">
-          <a href="index.html">Beranda</a
-          ><span class="material-symbols-outlined" style="font-size: 15px"
-            >chevron_right</span
-          ><span class="cur">Kos Favorit Saya</span>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kos Favorit Saya – RuangNyaman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/pages/favorit.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/transitions.css" />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="left">
+        <a class="brand" href="index.html"><img class="brand-logo" src="img/logo.png" alt="" width="36"
+            height="36" />Ruang<span>Nyaman</span></a>
+        <nav class="nav">
+          <a href="index.html">Beranda</a><a href="cari.html">Cari Kos</a><a class="on" href="favorit.html">Favorit
+            <span class="badge" id="favCount">0</span></a>
         </nav>
+      </div>
+      <form class="hsearch" action="cari.html">
+        <span class="material-symbols-outlined">search</span>
+        <input name="q" placeholder="Cari lokasi, kampus, atau nama kos" aria-label="Cari kos" />
+      </form>
+      <div class="city">
+        <span class="material-symbols-outlined">location_on</span>Surabaya
+      </div>
+      <div class="auth-nav" id="authNav"></div>
+    </div>
+  </header>
 
-        <div class="pagehead">
-          <div>
-            <div class="tagbadge">
-              <span
-                class="material-symbols-outlined"
-                style="font-variation-settings: &quot;FILL&quot; 1"
-                >favorite</span
-              >Koleksi Terpilih Kamu
-            </div>
-            <h1>Kos Favorit Saya</h1>
-            <p class="pagedesc">
-              Kos yang kamu simpan saat menjelajah RuangNyaman, tersimpan di browser
-              ini agar mudah ditinjau kembali.
-            </p>
+  <main>
+    <div class="glow"></div>
+    <div class="glow b"></div>
+    <div class="wrap">
+      <nav class="crumb">
+        <a href="index.html">Beranda</a><span class="material-symbols-outlined"
+          style="font-size: 15px">chevron_right</span><span class="cur">Kos Favorit Saya</span>
+      </nav>
+
+      <div class="pagehead">
+        <div>
+          <div class="tagbadge">
+            <span class="material-symbols-outlined"
+              style="font-variation-settings: &quot;FILL&quot; 1">favorite</span>Koleksi Terpilih Kamu
           </div>
-        </div>
-
-        <div class="filterbar">
-          <div class="ftabs" id="ftabs"></div>
-          <div class="findicator">
-            <span class="dot"></span><b id="countText">0 Kos Tersimpan</b>
-          </div>
-        </div>
-
-        <div class="grid" id="grid"></div>
-
-        <div class="empty" id="empty">
-          <div class="eicon">
-            <span class="material-symbols-outlined" style="font-size: 34px"
-              >favorite_border</span
-            >
-          </div>
-          <h3 class="etitle">Belum Ada Kos Favorit</h3>
-          <p class="edesc">
-            Klik ikon hati pada kos yang kamu sukai saat menjelajah katalog
-            RuangNyaman Surabaya agar mudah ditinjau kembali di sini.
+          <h1>Kos Favorit Saya</h1>
+          <p class="pagedesc">
+            Kos yang kamu simpan saat menjelajah RuangNyaman, tersimpan di browser
+            ini agar mudah ditinjau kembali.
           </p>
-          <a class="btn-explore" href="cari.html"
-            ><span>Mulai Cari Kos di Surabaya</span
-            ><span class="material-symbols-outlined" style="font-size: 17px"
-              >arrow_forward</span
-            ></a
-          >
         </div>
       </div>
-    </main>
 
-    <div class="toast" id="toast">
-      <span class="material-symbols-outlined">check_circle</span
-      ><span id="toastMsg">Kos dihapus dari favorit.</span>
+      <div class="filterbar">
+        <div class="ftabs" id="ftabs"></div>
+        <div class="findicator">
+          <span class="dot"></span><b id="countText">0 Kos Tersimpan</b>
+        </div>
+      </div>
+
+      <div class="grid" id="grid"></div>
+
+      <div class="empty" id="empty">
+        <div class="eicon">
+          <span class="material-symbols-outlined" style="font-size: 34px">favorite_border</span>
+        </div>
+        <h3 class="etitle">Belum Ada Kos Favorit</h3>
+        <p class="edesc">
+          Klik ikon hati pada kos yang kamu sukai saat menjelajah katalog
+          RuangNyaman Surabaya agar mudah ditinjau kembali di sini.
+        </p>
+        <a class="btn-explore" href="cari.html"><span>Mulai Cari Kos di Surabaya</span><span
+            class="material-symbols-outlined" style="font-size: 17px">arrow_forward</span></a>
+      </div>
     </div>
+  </main>
 
-    <script src="js/core/storage.js"></script>
-    <script src="js/core/util.js"></script>
-    <script src="js/pages/favorit.js"></script>
-    <script src="js/core/transitions.js"></script>
-  </body>
+  <div class="toast" id="toast">
+    <span class="material-symbols-outlined">check_circle</span><span id="toastMsg">Kos dihapus dari favorit.</span>
+  </div>
+
+  <script src="js/core/storage.js"></script>
+  <script src="js/core/util.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
+  <script src="js/core/supabase.js"></script>
+  <script src="js/core/data.js"></script>
+  <script src="js/core/auth.js"></script>
+  <script src="js/pages/favorit.js"></script>
+  <script src="js/core/transitions.js"></script>
+</body>
+
 </html>

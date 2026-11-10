@@ -34,8 +34,7 @@ function updateFavUI(k) {
   $("#favCount").textContent = Fav.get().length;
 }
 
-fetch("data/kos.json")
-  .then((r) => r.json())
+getAllKos()
   .then((data) => {
     const k = data.find((x) => x.id === id);
     $("#favCount").textContent = Fav.get().length;
@@ -46,12 +45,8 @@ fetch("data/kos.json")
     }
     document.title = k.nama + " – RuangNyaman";
 
-    const imgs = [
-      k.gambarUtama,
-      ...["a", "b", "c"].map(
-        (s) => `https://picsum.photos/seed/${k.id}${s}/800/500`,
-      ),
-    ];
+        // Foto asli kos (urutan pertama = foto utama)
+    const imgs = k.galeri.length ? k.galeri : [k.gambarUtama];
     const dTugu = km(k, TUGU).toFixed(1);
     const semuaFasilitas = [
       ...k.fasilitas.map((f) => [f, AM[f] || "check_circle"]),
@@ -70,12 +65,9 @@ fetch("data/kos.json")
       <span class="cur">${k.nama}</span>
     </nav>
 
-    <section class="gal">
+    <section class="gal ${imgs.length === 1 ? "gal-single" : ""}">
       <div class="gal-main" id="openGal0"><img src="${imgs[0]}" alt="${k.nama}"></div>
-      <div class="gal-sub">
-        <div class="thumb" id="openGal1"><img src="${imgs[1]}" alt=""></div>
-        <div class="thumb" id="openGal2"><img src="${imgs[2]}" alt=""></div>
-      </div>
+      ${imgs.length > 1 ? `<div class="gal-sub" style="grid-template-columns:repeat(${imgs.length > 2 ? 2 : 1},1fr)">${imgs.slice(1, 3).map((s, i) => `<div class="thumb" id="openGal${i + 1}"><img src="${s}" alt=""></div>`).join("")}</div>` : ""}
     </section>
 
     <div class="layout"><div class="col">
@@ -161,8 +153,8 @@ fetch("data/kos.json")
         (s) => `<img src="${s}" alt="" style="width:100%;border-radius:10px">`,
       )
       .join("");
-    ["openGal0", "openGal1", "openGal2"].forEach((gid) =>
-      $("#" + gid).addEventListener("click", () => $("#dlg").showModal()),
+    document.querySelectorAll('[id^="openGal"]').forEach((el) =>
+      el.addEventListener("click", () => $("#dlg").showModal()),
     );
     $("#dlgClose").addEventListener("click", () => $("#dlg").close());
 

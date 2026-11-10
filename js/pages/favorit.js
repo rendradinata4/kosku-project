@@ -102,8 +102,7 @@ $("#grid").addEventListener("click", (e) => {
   setTimeout(render, 260);
 });
 
-fetch("data/kos.json")
-  .then((r) => r.json())
+getAllKos()
   .then((d) => {
     DATA = d;
     render();

@@ -1,66 +1,54 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Detail Kos – RuangNyaman</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/pages/detail.css" />
-    <link rel="stylesheet" href="css/transitions.css" />
-    <link rel="icon" type="image/png" href="img/favicon.png" />
-    <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
-  </head>
-  <body>
-    <header class="header">
-      <div class="header-inner">
-        <div class="left">
-          <a class="brand" href="index.html"><img class="brand-logo" src="img/logo.png" alt="" width="36" height="36" />Ruang<span>Nyaman</span></a>
-          <nav class="nav">
-            <a href="index.html">Beranda</a
-            ><a class="on" href="cari.html">Cari Kos</a
-            ><a href="favorit.html"
-              >Favorit <span class="badge" id="favCount">0</span></a
-            >
-          </nav>
-        </div>
-        <form class="hsearch" action="cari.html">
-          <span class="material-symbols-outlined">search</span>
-          <input
-            name="q"
-            placeholder="Cari lokasi, kampus, atau nama kos"
-            aria-label="Cari kos"
-          />
-        </form>
-        <div class="city">
-          <span class="material-symbols-outlined">location_on</span>Surabaya
-        </div>
-      </div>
-    </header>
 
-    <main>
-      <div class="wrap" id="app">
-        <p class="muted" style="padding: 24px 0">Memuat…</p>
-      </div>
-    </main>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Detail Kos – RuangNyaman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/pages/detail.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/transitions.css" />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+</head>
 
-    <dialog
-      id="dlg"
-      style="
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="left">
+        <a class="brand" href="index.html"><img class="brand-logo" src="img/logo.png" alt="" width="36"
+            height="36" />Ruang<span>Nyaman</span></a>
+        <nav class="nav">
+          <a href="index.html">Beranda</a><a class="on" href="cari.html">Cari Kos</a><a href="favorit.html">Favorit
+            <span class="badge" id="favCount">0</span></a>
+        </nav>
+      </div>
+      <form class="hsearch" action="cari.html">
+        <span class="material-symbols-outlined">search</span>
+        <input name="q" placeholder="Cari lokasi, kampus, atau nama kos" aria-label="Cari kos" />
+      </form>
+      <div class="city">
+        <span class="material-symbols-outlined">location_on</span>Surabaya
+      </div>
+      <div class="auth-nav" id="authNav"></div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap" id="app">
+      <p class="muted" style="padding: 24px 0">Memuat…</p>
+    </div>
+  </main>
+
+  <dialog id="dlg" style="
         border: 0;
         border-radius: 14px;
         padding: 16px;
@@ -68,32 +56,28 @@
         max-width: 760px;
         max-height: 88vh;
         overflow: auto;
-      "
-    >
-      <button
-        id="dlgClose"
-        class="iconbtn"
-        style="float: right"
-        aria-label="Tutup"
-      >
-        <span class="material-symbols-outlined">close</span>
-      </button>
-      <div
-        id="dlgImgs"
-        style="
+      ">
+    <button id="dlgClose" class="iconbtn" style="float: right" aria-label="Tutup">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <div id="dlgImgs" style="
           clear: both;
           display: flex;
           flex-direction: column;
           gap: 10px;
           margin-top: 10px;
-        "
-      ></div>
-    </dialog>
+        "></div>
+  </dialog>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="js/core/storage.js"></script>
-    <script src="js/core/util.js"></script>
-    <script src="js/pages/detail.js"></script>
-    <script src="js/core/transitions.js"></script>
-  </body>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/core/storage.js"></script>
+  <script src="js/core/util.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
+  <script src="js/core/supabase.js"></script>
+  <script src="js/core/data.js"></script>
+  <script src="js/core/auth.js"></script>
+  <script src="js/pages/detail.js"></script>
+  <script src="js/core/transitions.js"></script>
+</body>
+
 </html>

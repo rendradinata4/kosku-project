@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    />
+    <title>Dashboard Pemilik – RuangNyaman</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/transitions.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <div class="left">
+          <a class="brand" href="index.html"
+            ><img class="brand-logo" src="img/logo.png" alt="" width="36" height="36" />Ruang<span>Nyaman</span></a
+          >
+          <nav class="nav">
+            <a href="index.html">Beranda</a>
+            <a href="cari.html">Cari Kos</a>
+            <a href="favorit.html">Favorit</a>
+          </nav>
+        </div>
+        <div class="auth-nav" id="authNav"></div>
+      </div>
+    </header>
+
+    <main class="dash-main">
+      <div class="dash-wrap" id="app">
+        <div class="dash-head">
+          <div>
+            <h1>Dashboard Pemilik</h1>
+            <p class="dash-sub" id="ringkasan">Memuat…</p>
+          </div>
+          <a class="dash-btn" href="form-kos.html">+ Tambah Kos</a>
+        </div>
+        <p class="dash-notif" id="notif" role="status" hidden></p>
+        <div class="dash-list" id="daftar"></div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
+    <script src="js/core/supabase.js"></script>
+    <script src="js/core/util.js"></script>
+    <script src="js/core/auth.js"></script>
+    <script src="js/core/owner.js"></script>
+    <script src="js/pages/dashboard.js"></script>
+  </body>
+</html>

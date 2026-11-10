@@ -1,222 +1,203 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>RuangNyaman – Cari Kos di Surabaya</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
-    <link rel="stylesheet" href="css/pages/home.css" />
-    <link rel="stylesheet" href="css/transitions.css" />
-    <link rel="icon" type="image/png" href="img/favicon.png" />
-    <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
-  </head>
-  <body>
-    <header class="header">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RuangNyaman – Cari Kos di Surabaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/pages/home.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/transitions.css" />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="left">
+        <a class="brand" href="index.html"><img class="brand-logo" src="img/logo.png" alt="" width="36"
+            height="36" />Ruang<span>Nyaman</span></a>
+        <nav class="nav">
+          <a class="on" href="index.html">Beranda</a>
+          <a href="cari.html">Cari Kos</a>
+          <a href="favorit.html">Favorit <span class="badge" id="favCount">0</span></a>
+        </nav>
+      </div>
+      <div class="city">
+        <span class="material-symbols-outlined">location_on</span>Surabaya,
+        Jawa Timur
+      </div>
+      <div class="auth-nav" id="authNav"></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
       <div class="container">
-        <div class="left">
-          <a class="brand" href="index.html"><img class="brand-logo" src="img/logo.png" alt="" width="36" height="36" />Ruang<span>Nyaman</span></a>
-          <nav class="nav">
-            <a class="on" href="index.html">Beranda</a>
-            <a href="cari.html">Cari Kos</a>
-            <a href="favorit.html">Favorit <span class="badge" id="favCount">0</span></a
-            >
-          </nav>
+        <div class="hero-head">
+          <div class="pill">
+            <i></i>Pencarian hunian mahasiswa &amp; profesional Surabaya
+          </div>
+          <h1>Temukan Kos Impianmu di <em>Surabaya</em></h1>
+          <p class="sub">
+            Pilihan kos nyaman dekat kampus (ITS, Unair, UPN Veteran, Petra)
+            dengan harga transparan dan lokasi yang jelas di peta.
+          </p>
         </div>
-        <div class="city">
-          <span class="material-symbols-outlined">location_on</span>Surabaya,
-          Jawa Timur
+        <div class="fbox">
+          <form class="fform" action="cari.html">
+            <label class="field grow"><span class="material-symbols-outlined" style="color: var(--p)">search</span>
+              <input name="q" placeholder="Cari lokasi, nama jalan, atau kampus di Surabaya..."
+                aria-label="Cari kos" /></label>
+            <label class="field sel"><span class="material-symbols-outlined">group</span>
+              <select name="tipe" aria-label="Tipe kos">
+                <option value="">Semua Tipe Kos</option>
+                <option value="Putri">Kos Putri</option>
+                <option value="Putra">Kos Putra</option>
+                <option value="Campur">Kos Campur</option>
+              </select></label>
+            <button class="btn" type="submit">
+              <span class="material-symbols-outlined">travel_explore</span>Cari Kos
+            </button>
+          </form>
+          <div class="chips">
+            <b><span class="material-symbols-outlined" style="font-size: 16px">local_fire_department</span>Populer:</b>
+            <a href="cari.html?q=ITS">Dekat ITS</a><a href="cari.html?q=Unair">Unair</a><a href="cari.html?q=UPN">UPN
+              Rungkut</a><a href="cari.html?q=Petra">Petra Siwalankerto</a><a href="cari.html?q=Gubeng">Gubeng</a><a
+              href="cari.html?q=Keputih">Keputih</a>
+          </div>
+        </div>
+        <div class="metrics" id="metrics"></div>
+      </div>
+    </section>
+
+    <section class="section" data-animate>
+      <div class="shead">
+        <div>
+          <div class="tag"><i></i>Surabaya Terpopuler</div>
+          <h2>Kos Rekomendasi Pilihan</h2>
+          <p>Diurutkan berdasarkan rating tertinggi.</p>
+        </div>
+        <a class="all" id="all" href="cari.html">Lihat Semua
+          <span class="material-symbols-outlined">arrow_forward</span></a>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section class="features" data-animate>
+      <div class="container">
+        <div class="fhead">
+          <span class="tag">Kenapa RuangNyaman?</span>
+          <h2>Cari Kos di Kota Pahlawan Jadi Lebih Mudah</h2>
+          <p>Bandingkan harga, fasilitas, dan lokasi dalam satu tempat.</p>
+        </div>
+        <div class="fgrid">
+          <div class="fcard">
+            <div class="ficon">
+              <span class="material-symbols-outlined">map</span>
+            </div>
+            <h3>Cari Langsung di Peta Interaktif</h3>
+            <p>
+              Lihat lokasi kos lewat marker harga yang otomatis mengelompok
+              saat peta di-zoom out. Klik kartu atau marker untuk membuka
+              detailnya.
+            </p>
+          </div>
+          <div class="fcard">
+            <div class="ficon b">
+              <span class="material-symbols-outlined">tune</span>
+            </div>
+            <h3>Filter Lengkap dan Transparan</h3>
+            <p>
+              Atur tipe kos, rentang harga, dan fasilitas seperti AC, Wi-Fi,
+              atau kamar mandi dalam. Daftar dan peta ikut berubah seketika.
+            </p>
+          </div>
+          <div class="fcard">
+            <div class="ficon c">
+              <span class="material-symbols-outlined">favorite</span>
+            </div>
+            <h3>Simpan Favorit Tanpa Login</h3>
+            <p>
+              Tandai kos yang kamu suka dengan ikon hati. Daftarnya tersimpan
+              di browser, jadi tidak perlu membuat akun.
+            </p>
+          </div>
         </div>
       </div>
-    </header>
+    </section>
 
-    <main>
-      <section class="hero">
-        <div class="container">
-          <div class="hero-head">
-            <div class="pill">
-              <i></i>Pencarian hunian mahasiswa &amp; profesional Surabaya
-            </div>
-            <h1>Temukan Kos Impianmu di <em>Surabaya</em></h1>
-            <p class="sub">
-              Pilihan kos nyaman dekat kampus (ITS, Unair, UPN Veteran, Petra)
-              dengan harga transparan dan lokasi yang jelas di peta.
-            </p>
-          </div>
-          <div class="fbox">
-            <form class="fform" action="cari.html">
-              <label class="field grow"
-                ><span class="material-symbols-outlined" style="color: var(--p)"
-                  >search</span
-                >
-                <input
-                  name="q"
-                  placeholder="Cari lokasi, nama jalan, atau kampus di Surabaya..."
-                  aria-label="Cari kos"
-              /></label>
-              <label class="field sel"
-                ><span class="material-symbols-outlined">group</span>
-                <select name="tipe" aria-label="Tipe kos">
-                  <option value="">Semua Tipe Kos</option>
-                  <option value="Putri">Kos Putri</option>
-                  <option value="Putra">Kos Putra</option>
-                  <option value="Campur">Kos Campur</option>
-                </select></label
-              >
-              <button class="btn" type="submit">
-                <span class="material-symbols-outlined">travel_explore</span
-                >Cari Kos
-              </button>
-            </form>
-            <div class="chips">
-              <b
-                ><span class="material-symbols-outlined" style="font-size: 16px"
-                  >local_fire_department</span
-                >Populer:</b
-              >
-              <a href="cari.html?q=ITS">Dekat ITS</a
-              ><a href="cari.html?q=Unair">Unair</a
-              ><a href="cari.html?q=UPN">UPN Rungkut</a
-              ><a href="cari.html?q=Petra">Petra Siwalankerto</a
-              ><a href="cari.html?q=Gubeng">Gubeng</a
-              ><a href="cari.html?q=Keputih">Keputih</a>
-            </div>
-          </div>
-          <div class="metrics" id="metrics"></div>
+    <section class="teaser" data-animate>
+      <div class="tcard">
+        <div>
+          <span class="tag"><i></i>Split Map View</span>
+          <h2>Cari Kos Sambil Melihat Peta Surabaya</h2>
+          <p>
+            Bandingkan jarak kos ke kampus, stasiun, dan pusat aktivitas
+            langsung di peta, lengkap dengan filter di sampingnya.
+          </p>
+          <a class="btn" href="cari.html"><span class="material-symbols-outlined">explore</span>Buka
+            Pencarian Peta</a>
         </div>
-      </section>
-
-      <section class="section" data-animate>
-        <div class="shead">
-          <div>
-            <div class="tag"><i></i>Surabaya Terpopuler</div>
-            <h2>Kos Rekomendasi Pilihan</h2>
-            <p>Diurutkan berdasarkan rating tertinggi.</p>
-          </div>
-          <a class="all" id="all" href="cari.html"
-            >Lihat Semua
-            <span class="material-symbols-outlined">arrow_forward</span></a
-          >
-        </div>
-        <div class="grid" id="grid"></div>
-      </section>
-
-      <section class="features" data-animate>
-        <div class="container">
-          <div class="fhead">
-            <span class="tag">Kenapa RuangNyaman?</span>
-            <h2>Cari Kos di Kota Pahlawan Jadi Lebih Mudah</h2>
-            <p>Bandingkan harga, fasilitas, dan lokasi dalam satu tempat.</p>
-          </div>
-          <div class="fgrid">
-            <div class="fcard">
-              <div class="ficon">
-                <span class="material-symbols-outlined">map</span>
-              </div>
-              <h3>Cari Langsung di Peta Interaktif</h3>
-              <p>
-                Lihat lokasi kos lewat marker harga yang otomatis mengelompok
-                saat peta di-zoom out. Klik kartu atau marker untuk membuka
-                detailnya.
-              </p>
-            </div>
-            <div class="fcard">
-              <div class="ficon b">
-                <span class="material-symbols-outlined">tune</span>
-              </div>
-              <h3>Filter Lengkap dan Transparan</h3>
-              <p>
-                Atur tipe kos, rentang harga, dan fasilitas seperti AC, Wi-Fi,
-                atau kamar mandi dalam. Daftar dan peta ikut berubah seketika.
-              </p>
-            </div>
-            <div class="fcard">
-              <div class="ficon c">
-                <span class="material-symbols-outlined">favorite</span>
-              </div>
-              <h3>Simpan Favorit Tanpa Login</h3>
-              <p>
-                Tandai kos yang kamu suka dengan ikon hati. Daftarnya tersimpan
-                di browser, jadi tidak perlu membuat akun.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="teaser" data-animate>
-        <div class="tcard">
-          <div>
-            <span class="tag"><i></i>Split Map View</span>
-            <h2>Cari Kos Sambil Melihat Peta Surabaya</h2>
-            <p>
-              Bandingkan jarak kos ke kampus, stasiun, dan pusat aktivitas
-              langsung di peta, lengkap dengan filter di sampingnya.
-            </p>
-            <a class="btn" href="cari.html"
-              ><span class="material-symbols-outlined">explore</span>Buka
-              Pencarian Peta</a
-            >
-          </div>
-          <div class="mini">
-            <div id="mini"></div>
-            <a href="cari.html" aria-label="Buka pencarian peta"></a
-            ><span class="count" id="count"></span>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="container">
-        <div class="fg">
-          <div>
-            <a class="brand" href="index.html"><img class="brand-logo" src="img/logo.png" alt="" width="36" height="36" />Ruang<span>Nyaman</span></a>
-            <p>
-              Prototipe pencarian kos berbasis lokasi di Surabaya, dibuat dengan
-              HTML, CSS, dan JavaScript.
-            </p>
-          </div>
-          <div>
-            <h4>Jelajahi</h4>
-            <ul>
-              <li><a href="cari.html">Cari Kos</a></li>
-              <li><a href="cari.html?fav=1">Favorit</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Kampus Populer</h4>
-            <ul>
-              <li><a href="cari.html?q=Unair">Kos Dekat Unair</a></li>
-              <li><a href="cari.html?q=ITS">Kos Dekat ITS</a></li>
-              <li><a href="cari.html?q=UPN">Kos Dekat UPN</a></li>
-              <li><a href="cari.html?q=Petra">Kos Dekat Petra</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="copy">
-          © 2026 RuangNyaman. Data kos pada prototipe ini hanya contoh.
+        <div class="mini">
+          <div id="mini"></div>
+          <a href="cari.html" aria-label="Buka pencarian peta"></a><span class="count" id="count"></span>
         </div>
       </div>
-    </footer>
+    </section>
+  </main>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="js/core/storage.js"></script>
-    <script src="js/core/util.js"></script>
-    <script src="js/pages/home.js"></script>
-    <script src="js/core/transitions.js"></script>
-  </body>
+  <footer class="footer">
+    <div class="container">
+      <div class="fg">
+        <div>
+          <a class="brand" href="index.html"><img class="brand-logo" src="img/logo.png" alt="" width="36"
+              height="36" />Ruang<span>Nyaman</span></a>
+          <p>
+            Prototipe pencarian kos berbasis lokasi di Surabaya, dibuat dengan
+            HTML, CSS, dan JavaScript.
+          </p>
+        </div>
+        <div>
+          <h4>Jelajahi</h4>
+          <ul>
+            <li><a href="cari.html">Cari Kos</a></li>
+            <li><a href="cari.html?fav=1">Favorit</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Kampus Populer</h4>
+          <ul>
+            <li><a href="cari.html?q=Unair">Kos Dekat Unair</a></li>
+            <li><a href="cari.html?q=ITS">Kos Dekat ITS</a></li>
+            <li><a href="cari.html?q=UPN">Kos Dekat UPN</a></li>
+            <li><a href="cari.html?q=Petra">Kos Dekat Petra</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copy">
+        © 2026 RuangNyaman. Data kos pada prototipe ini hanya contoh.
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/core/storage.js"></script>
+  <script src="js/core/util.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
+  <script src="js/core/supabase.js"></script>
+  <script src="js/core/data.js"></script>
+  <script src="js/core/auth.js"></script>
+  <script src="js/pages/home.js"></script>
+  <script src="js/core/transitions.js"></script>
+</body>
+
 </html>

@@ -262,8 +262,7 @@ $("#cards").addEventListener("click", (e) => {
 buildPriceSelects();
 Maps.init((id) => selectCard(id));
 
-fetch("data/kos.json")
-  .then((r) => r.json())
+getAllKos()
   .then((d) => {
     DATA = d;
     const p = new URLSearchParams(location.search);

@@ -33,8 +33,7 @@ $("#grid").addEventListener("click", (e) => {
   location.href = "detail.html?id=" + c.dataset.id;
 });
 
-fetch("data/kos.json")
-  .then((r) => r.json())
+getAllKos()
   .then((data) => {
     const avg = data.reduce((s, k) => s + k.rating, 0) / data.length;
     const rooms = data.reduce((s, k) => s + k.sisaKamar, 0);

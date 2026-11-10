@@ -736,3 +736,31 @@ aside {
     box-shadow: 0 8px 24px #00a86b66;
   }
 }
+
+/* Galeri: tinggi tetap. Foto dikeluarkan dari perhitungan tata letak (position: absolute)
+   agar foto vertikal dari HP tidak melebarkan baris galeri. */
+.gal-main,
+.thumb {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+.gal-main img,
+.thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.gal-sub {
+  grid-template-rows: minmax(0, 1fr);
+}
+@media (min-width: 820px) {
+  .gal {
+    grid-template-rows: minmax(0, 1fr);
+  }
+}
+.gal.gal-single {
+  grid-template-columns: 1fr;
+}

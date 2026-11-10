@@ -1,180 +1,159 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cari Kos – RuangNyaman</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
-    />
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/pages/cari.css" />
-    <link rel="stylesheet" href="css/transitions.css" />
-    <link rel="icon" type="image/png" href="img/favicon.png" />
-    <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
-  </head>
-  <body>
-    <header class="header">
-      <div class="header-inner">
-        <div class="left">
-          <a class="brand" href="index.html"><img class="brand-logo" src="img/logo.png" alt="" width="36" height="36" />Ruang<span>Nyaman</span></a>
-          <nav class="nav">
-            <a href="index.html">Beranda</a>
-            <a class="on" href="cari.html">Cari Kos</a>
-            <a href="favorit.html"
-              >Favorit <span class="badge" id="favCount">0</span></a
-            >
-          </nav>
-        </div>
-        <form class="hsearch" id="searchForm">
-          <span class="material-symbols-outlined">search</span>
-          <input
-            id="q"
-            placeholder="Cari lokasi, kampus, atau nama kos"
-            aria-label="Cari kos"
-          />
-        </form>
-        <div class="city">
-          <span class="material-symbols-outlined">location_on</span>Surabaya
-        </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cari Kos – RuangNyaman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/pages/cari.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/transitions.css" />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="left">
+        <a class="brand" href="index.html"><img class="brand-logo" src="img/logo.png" alt="" width="36"
+            height="36" />Ruang<span>Nyaman</span></a>
+        <nav class="nav">
+          <a href="index.html">Beranda</a>
+          <a class="on" href="cari.html">Cari Kos</a>
+          <a href="favorit.html">Favorit <span class="badge" id="favCount">0</span></a>
+        </nav>
       </div>
-    </header>
+      <form class="hsearch" id="searchForm">
+        <span class="material-symbols-outlined">search</span>
+        <input id="q" placeholder="Cari lokasi, kampus, atau nama kos" aria-label="Cari kos" />
+      </form>
+      <div class="city">
+        <span class="material-symbols-outlined">location_on</span>Surabaya
+      </div>
+      <div class="auth-nav" id="authNav"></div>
+    </div>
+  </header>
 
-    <main>
-      <div class="split">
-        <section class="list-panel">
-          <div class="filter-sticky-bar">
-            <div class="filter-header-row">
-              <div class="result-count-badge">
-                <h1 class="title-count" id="count">0 Kos Ditemukan</h1>
-                <span class="tag-pill">Surabaya</span>
-              </div>
-              <div class="dropdown" id="sortDD">
-                <button type="button">
-                  <span
-                    class="material-symbols-outlined"
-                    style="color: var(--p); font-size: 18px"
-                    >sort</span
-                  ><span id="sortLabel">Rekomendasi</span
-                  ><span
-                    class="material-symbols-outlined"
-                    style="font-size: 18px"
-                    >expand_more</span
-                  >
-                </button>
-                <div class="menu">
-                  <button type="button" data-sort="Rekomendasi">
-                    Rekomendasi
-                    <span class="material-symbols-outlined check">check</span>
-                  </button>
-                  <button type="button" data-sort="Harga Terendah">
-                    Harga Terendah
-                  </button>
-                  <button type="button" data-sort="Rating Tertinggi">
-                    Rating Tertinggi
-                  </button>
-                  <button type="button" data-sort="Terdekat">
-                    Terdekat dari Tugu Pahlawan
-                  </button>
-                </div>
-              </div>
+  <main>
+    <div class="split">
+      <section class="list-panel">
+        <div class="filter-sticky-bar">
+          <div class="filter-header-row">
+            <div class="result-count-badge">
+              <h1 class="title-count" id="count">0 Kos Ditemukan</h1>
+              <span class="tag-pill">Surabaya</span>
             </div>
-
-            <div class="pills-row">
-              <div class="dropdown" id="tipeDD">
-                <button type="button" id="tipeBtn">
-                  <span class="material-symbols-outlined">wc</span
-                  ><span id="tipeLabel">Tipe: Semua</span
-                  ><span class="material-symbols-outlined">expand_more</span>
+            <div class="dropdown" id="sortDD">
+              <button type="button">
+                <span class="material-symbols-outlined" style="color: var(--p); font-size: 18px">sort</span><span
+                  id="sortLabel">Rekomendasi</span><span class="material-symbols-outlined"
+                  style="font-size: 18px">expand_more</span>
+              </button>
+              <div class="menu">
+                <button type="button" data-sort="Rekomendasi">
+                  Rekomendasi
+                  <span class="material-symbols-outlined check">check</span>
                 </button>
-                <div class="menu">
-                  <button type="button" data-tipe="">Semua Tipe</button>
-                  <button type="button" data-tipe="Putri">Putri</button>
-                  <button type="button" data-tipe="Putra">Putra</button>
-                  <button type="button" data-tipe="Campur">Campur</button>
-                </div>
-              </div>
-              <div class="dropdown" id="hargaDD">
-                <button type="button" id="hargaBtn">
-                  <span class="material-symbols-outlined">payments</span
-                  ><span id="hargaLabel">Semua Harga</span
-                  ><span class="material-symbols-outlined">expand_more</span>
+                <button type="button" data-sort="Harga Terendah">
+                  Harga Terendah
                 </button>
-                <div class="menu wide">
-                  <div class="hrow">
-                    <select id="fMin"></select
-                    ><span>–</span
-                    ><select id="fMax"></select>
-                  </div>
-                  <button type="button" class="apply" id="hargaApply">
-                    Terapkan
-                  </button>
-                </div>
+                <button type="button" data-sort="Rating Tertinggi">
+                  Rating Tertinggi
+                </button>
+                <button type="button" data-sort="Terdekat">
+                  Terdekat dari Tugu Pahlawan
+                </button>
               </div>
-              <button type="button" class="chip" data-fas="AC">
-                <span class="material-symbols-outlined">ac_unit</span>AC
-              </button>
-              <button type="button" class="chip" data-fas="Wi-Fi">
-                <span class="material-symbols-outlined">wifi</span>Wi-Fi
-              </button>
-              <button type="button" class="chip" data-fas="Kamar Mandi Dalam">
-                <span class="material-symbols-outlined">shower</span>KM Dalam
-              </button>
-              <button type="button" class="chip" id="favChip">
-                <span class="material-symbols-outlined">favorite</span>Favorit
-              </button>
-            </div>
-
-            <div class="filter-stats-row">
-              <span class="status-text" id="statsText"
-                ><span class="dot"></span>Tidak ada filter</span
-              >
-              <button type="button" class="reset" id="resetBtn">
-                Reset Semua
-              </button>
             </div>
           </div>
 
-          <div class="cards-container" id="cards"></div>
-        </section>
+          <div class="pills-row">
+            <div class="dropdown" id="tipeDD">
+              <button type="button" id="tipeBtn">
+                <span class="material-symbols-outlined">wc</span><span id="tipeLabel">Tipe: Semua</span><span
+                  class="material-symbols-outlined">expand_more</span>
+              </button>
+              <div class="menu">
+                <button type="button" data-tipe="">Semua Tipe</button>
+                <button type="button" data-tipe="Putri">Putri</button>
+                <button type="button" data-tipe="Putra">Putra</button>
+                <button type="button" data-tipe="Campur">Campur</button>
+              </div>
+            </div>
+            <div class="dropdown" id="hargaDD">
+              <button type="button" id="hargaBtn">
+                <span class="material-symbols-outlined">payments</span><span id="hargaLabel">Semua Harga</span><span
+                  class="material-symbols-outlined">expand_more</span>
+              </button>
+              <div class="menu wide">
+                <div class="hrow">
+                  <select id="fMin"></select><span>–</span><select id="fMax"></select>
+                </div>
+                <button type="button" class="apply" id="hargaApply">
+                  Terapkan
+                </button>
+              </div>
+            </div>
+            <button type="button" class="chip" data-fas="AC">
+              <span class="material-symbols-outlined">ac_unit</span>AC
+            </button>
+            <button type="button" class="chip" data-fas="Wi-Fi">
+              <span class="material-symbols-outlined">wifi</span>Wi-Fi
+            </button>
+            <button type="button" class="chip" data-fas="Kamar Mandi Dalam">
+              <span class="material-symbols-outlined">shower</span>KM Dalam
+            </button>
+            <button type="button" class="chip" id="favChip">
+              <span class="material-symbols-outlined">favorite</span>Favorit
+            </button>
+          </div>
 
-        <section class="map-panel"><div id="map"></div></section>
-      </div>
+          <div class="filter-stats-row">
+            <span class="status-text" id="statsText"><span class="dot"></span>Tidak ada filter</span>
+            <button type="button" class="reset" id="resetBtn">
+              Reset Semua
+            </button>
+          </div>
+        </div>
 
-      <!-- Tombol ganti tampilan Daftar / Peta (hanya muncul di HP & tablet) -->
-      <button type="button" class="map-toggle" id="mapToggle" aria-pressed="false">
-        <span class="material-symbols-outlined toggle-icon">map</span>
-        <span class="toggle-label">Peta</span>
-      </button>
-    </main>
+        <div class="cards-container" id="cards"></div>
+      </section>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-    <script src="js/core/storage.js"></script>
-    <script src="js/core/util.js"></script>
-    <script src="js/core/filter.js"></script>
-    <script src="js/core/maps.js"></script>
-    <script src="js/pages/cari.js"></script>
-    <script src="js/core/transitions.js"></script>
-  </body>
+      <section class="map-panel">
+        <div id="map"></div>
+      </section>
+    </div>
+
+    <!-- Tombol ganti tampilan Daftar / Peta (hanya muncul di HP & tablet) -->
+    <button type="button" class="map-toggle" id="mapToggle" aria-pressed="false">
+      <span class="material-symbols-outlined toggle-icon">map</span>
+      <span class="toggle-label">Peta</span>
+    </button>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="js/core/storage.js"></script>
+  <script src="js/core/util.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
+  <script src="js/core/supabase.js"></script>
+  <script src="js/core/data.js"></script>
+  <script src="js/core/auth.js"></script>
+  <script src="js/core/filter.js"></script>
+  <script src="js/core/maps.js"></script>
+  <script src="js/pages/cari.js"></script>
+  <script src="js/core/transitions.js"></script>
+</body>
+
 </html>
