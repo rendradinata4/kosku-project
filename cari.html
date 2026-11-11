@@ -74,49 +74,21 @@
                 <button type="button" data-sort="Terdekat">
                   Terdekat dari Tugu Pahlawan
                 </button>
+                <button type="button" data-sort="Terdekat kampus">
+                  Terdekat kampus pilihan
+                </button>
               </div>
             </div>
           </div>
 
           <div class="pills-row">
-            <div class="dropdown" id="tipeDD">
-              <button type="button" id="tipeBtn">
-                <span class="material-symbols-outlined">wc</span><span id="tipeLabel">Tipe: Semua</span><span
-                  class="material-symbols-outlined">expand_more</span>
-              </button>
-              <div class="menu">
-                <button type="button" data-tipe="">Semua Tipe</button>
-                <button type="button" data-tipe="Putri">Putri</button>
-                <button type="button" data-tipe="Putra">Putra</button>
-                <button type="button" data-tipe="Campur">Campur</button>
-              </div>
-            </div>
-            <div class="dropdown" id="hargaDD">
-              <button type="button" id="hargaBtn">
-                <span class="material-symbols-outlined">payments</span><span id="hargaLabel">Semua Harga</span><span
-                  class="material-symbols-outlined">expand_more</span>
-              </button>
-              <div class="menu wide">
-                <div class="hrow">
-                  <select id="fMin"></select><span>–</span><select id="fMax"></select>
-                </div>
-                <button type="button" class="apply" id="hargaApply">
-                  Terapkan
-                </button>
-              </div>
-            </div>
-            <button type="button" class="chip" data-fas="AC">
-              <span class="material-symbols-outlined">ac_unit</span>AC
-            </button>
-            <button type="button" class="chip" data-fas="Wi-Fi">
-              <span class="material-symbols-outlined">wifi</span>Wi-Fi
-            </button>
-            <button type="button" class="chip" data-fas="Kamar Mandi Dalam">
-              <span class="material-symbols-outlined">shower</span>KM Dalam
+            <button type="button" class="chip chip-filter" id="fBtn" aria-haspopup="dialog">
+              <span class="material-symbols-outlined">tune</span>Filter<span class="f-badge" id="fBadge" hidden>0</span>
             </button>
             <button type="button" class="chip" id="favChip">
               <span class="material-symbols-outlined">favorite</span>Favorit
             </button>
+            <span id="activeTags" style="display: contents"></span>
           </div>
 
           <div class="filter-stats-row">
@@ -141,6 +113,88 @@
       <span class="toggle-label">Peta</span>
     </button>
   </main>
+
+  <!-- Panel filter lengkap -->
+  <div class="f-overlay" id="fOverlay" hidden></div>
+  <aside class="f-drawer" id="fDrawer" role="dialog" aria-modal="true" aria-labelledby="fTitle" hidden>
+    <div class="f-head">
+      <h2 id="fTitle">Filter pencarian</h2>
+      <button type="button" class="f-close" id="fClose" aria-label="Tutup filter"><span class="material-symbols-outlined">close</span></button>
+    </div>
+
+    <div class="f-body">
+      <section class="f-sec">
+        <h3>Tipe kos</h3>
+        <div class="f-chips" id="fTipe">
+          <button type="button" class="chip" data-tipe="">Semua</button>
+          <button type="button" class="chip" data-tipe="Putri">Putri</button>
+          <button type="button" class="chip" data-tipe="Putra">Putra</button>
+          <button type="button" class="chip" data-tipe="Campur">Campur</button>
+        </div>
+      </section>
+
+      <section class="f-sec">
+        <h3>Harga per bulan</h3>
+        <div class="f-range">
+          <label>Minimum<input type="number" id="fMin" min="0" step="50000" placeholder="0" inputmode="numeric" /></label>
+          <span>–</span>
+          <label>Maksimum<input type="number" id="fMax" min="0" step="50000" placeholder="Tanpa batas" inputmode="numeric" /></label>
+        </div>
+        <div class="f-chips" id="fPreset">
+          <button type="button" class="chip" data-min="0" data-max="1000000">&lt; 1 jt</button>
+          <button type="button" class="chip" data-min="1000000" data-max="1500000">1 – 1,5 jt</button>
+          <button type="button" class="chip" data-min="1500000" data-max="2000000">1,5 – 2 jt</button>
+          <button type="button" class="chip" data-min="2000000" data-max="">&gt; 2 jt</button>
+        </div>
+      </section>
+
+      <section class="f-sec">
+        <h3>Dekat kampus</h3>
+        <select id="fKampus" class="f-select" aria-label="Pilih kampus"></select>
+        <div class="f-radius" id="fRadiusRow" hidden>
+          <span>Dalam radius</span>
+          <select id="fRadius" class="f-select" aria-label="Radius jarak">
+            <option value="0.5">0,5 km</option>
+            <option value="1">1 km</option>
+            <option value="2" selected>2 km</option>
+            <option value="3">3 km</option>
+            <option value="5">5 km</option>
+          </select>
+        </div>
+        <p class="f-note">Jarak dihitung dari titik kos di peta ke titik tengah kampus (garis lurus).</p>
+      </section>
+
+      <section class="f-sec">
+        <h3>Fasilitas kamar</h3>
+        <div class="f-checks" id="fFas"></div>
+      </section>
+
+      <section class="f-sec">
+        <h3>Fasilitas bersama</h3>
+        <div class="f-checks" id="fBersama"></div>
+      </section>
+
+      <section class="f-sec">
+        <h3>Rating minimal</h3>
+        <div class="f-chips" id="fRating">
+          <button type="button" class="chip" data-rating="0">Semua</button>
+          <button type="button" class="chip" data-rating="4">4,0+</button>
+          <button type="button" class="chip" data-rating="4.5">4,5+</button>
+          <button type="button" class="chip" data-rating="4.8">4,8+</button>
+        </div>
+      </section>
+
+      <section class="f-sec">
+        <h3>Ketersediaan</h3>
+        <label class="f-check"><input type="checkbox" id="fTersedia" /><span>Hanya yang masih ada kamar kosong</span></label>
+      </section>
+    </div>
+
+    <div class="f-foot">
+      <button type="button" class="f-reset" id="fReset">Reset</button>
+      <button type="button" class="f-apply" id="fApply">Tampilkan kos</button>
+    </div>
+  </aside>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
