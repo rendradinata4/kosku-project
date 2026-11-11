@@ -20,24 +20,29 @@
 </head>
 
 <body>
-  <header class="header">
-    <div class="header-inner">
-      <div class="left">
-        <a class="brand" href="index.html"><img class="brand-logo" src="img/logo.png" alt="" width="36"
-            height="36" />Ruang<span>Nyaman</span></a>
-        <nav class="nav">
-          <a href="index.html">Beranda</a>
-          <a href="cari.html">Cari Kos</a>
-          <a href="favorit.html">Favorit</a>
-        </nav>
-      </div>
-      <div class="auth-nav" id="authNav"></div>
-    </div>
-  </header>
+  <div class="dsh">
+    <aside class="dsh-side">
+      <a class="dsh-brand" href="index.html"><img src="img/logo.png" alt="" width="34" height="34" /><b>Ruang<span>Nyaman</span></b></a>
+      <p class="dsh-label">Menu utama</p>
+      <nav class="dsh-nav">
+        <a class="dsh-link" href="dashboard.html"><span class="material-symbols-outlined">dashboard</span>Dashboard</a>
+        <a class="dsh-link active" href="form-kos.html"><span class="material-symbols-outlined">add_home</span>Tambah Kos</a>
+      </nav>
+      <p class="dsh-label">Situs</p>
+      <nav class="dsh-nav">
+        <a class="dsh-link" href="index.html"><span class="material-symbols-outlined">home</span>Beranda</a>
+        <a class="dsh-link" href="cari.html"><span class="material-symbols-outlined">search</span>Cari Kos</a>
+      </nav>
+    </aside>
 
-  <main class="dash-main">
-    <div class="dash-wrap" id="app">
-      <div class="dash-head">
+    <div class="dsh-content">
+      <div class="dsh-top">
+        <div class="dsh-crumb">RuangNyaman <span class="material-symbols-outlined">chevron_right</span><a href="dashboard.html">Dashboard Pemilik</a><span class="material-symbols-outlined">chevron_right</span><b>Form Kos</b></div>
+        <div class="auth-nav" id="authNav"></div>
+      </div>
+
+      <main class="dsh-page dsh-narrow" id="app">
+        <div class="dash-head">
         <div>
           <h1 id="judul">Tambah Kos</h1>
           <p class="dash-sub"><a href="dashboard.html">← Kembali ke dashboard</a></p>
@@ -123,7 +128,11 @@
             diperkecil otomatis sebelum diunggah, dan baru tersimpan saat Anda menekan tombol simpan.</p>
           <div class="foto-grid" id="fotoGrid"></div>
           <p class="f-hint" id="fotoKosong">Belum ada foto.</p>
-          <label class="dash-btn ghost" for="fotoInput">+ Pilih foto</label>
+          <label class="dropzone" id="dropFoto" for="fotoInput">
+            <span class="material-symbols-outlined">cloud_upload</span>
+            <b>Seret &amp; lepas foto di sini</b>
+            <small>atau klik untuk memilih dari perangkat</small>
+          </label>
           <input type="file" id="fotoInput" accept="image/jpeg,image/png,image/webp" multiple hidden />
         </section>
 
@@ -132,8 +141,9 @@
           <button type="button" class="dash-btn" id="btnAjukan" data-simpan>Simpan &amp; ajukan ke admin</button>
         </div>
       </div>
+      </main>
     </div>
-  </main>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>

@@ -14,6 +14,15 @@ const esc = (t) =>
       ],
   );
 
+// Halaman saat ini sebagai tujuan setelah login, mis. "cari.html?fav=1".
+// Dengan cleanUrls di Vercel, alamatnya "/cari" (tanpa .html) dan "/" untuk beranda,
+// jadi nama file dilengkapi lagi agar cocok dengan aturan "next" di masuk.js.
+function halamanSaatIni() {
+  let nama = location.pathname.split("/").pop() || "index";
+  if (!nama.endsWith(".html")) nama += ".html";
+  return nama + location.search;
+}
+
 const Auth = {
   async session() {
     const { data } = await db.auth.getSession();
@@ -67,7 +76,7 @@ const Auth = {
   async require(roles) {
     const p = await this.profile();
     if (!p) {
-      const kembali = location.pathname.split("/").pop() + location.search;
+      const kembali = halamanSaatIni();
       location.href = "masuk.html?next=" + encodeURIComponent(kembali);
       return null;
     }
@@ -119,8 +128,7 @@ const SELECTOR_TERLINDUNGI = [
 
 // Arahkan ke halaman masuk, lalu kembali ke halaman ini setelah login
 function keHalamanMasuk() {
-  const kembali = location.pathname.split("/").pop() + location.search;
-  location.href = "masuk.html?next=" + encodeURIComponent(kembali || "index.html");
+  location.href = "masuk.html?next=" + encodeURIComponent(halamanSaatIni());
 }
 
 let sudahLogin = null; // null = belum diketahui, true/false = hasil pengecekan sesi

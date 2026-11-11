@@ -22,42 +22,63 @@
     <link rel="stylesheet" href="css/transitions.css" />
   </head>
   <body>
-    <header class="header">
-      <div class="header-inner">
-        <div class="left">
-          <a class="brand" href="index.html"
-            ><img class="brand-logo" src="img/logo.png" alt="" width="36" height="36" />Ruang<span>Nyaman</span></a
-          >
-          <nav class="nav">
-            <a href="index.html">Beranda</a>
-            <a href="cari.html">Cari Kos</a>
-            <a href="favorit.html">Favorit</a>
-          </nav>
-        </div>
-        <div class="auth-nav" id="authNav"></div>
-      </div>
-    </header>
+    <div class="dsh">
+      <aside class="dsh-side">
+        <a class="dsh-brand" href="index.html"><img src="img/logo.png" alt="" width="34" height="34" /><b>Ruang<span>Nyaman</span></b></a>
+        <p class="dsh-label">Menu utama</p>
+        <nav class="dsh-nav" role="tablist">
+          <button type="button" class="dsh-link adm-tab active" data-tab="antrean"><span class="material-symbols-outlined">inbox</span>Antrean <span class="adm-count" id="cAntrean">0</span></button>
+          <button type="button" class="dsh-link adm-tab" data-tab="kos"><span class="material-symbols-outlined">apartment</span>Semua Kos</button>
+          <button type="button" class="dsh-link adm-tab" data-tab="fasilitas"><span class="material-symbols-outlined">deck</span>Fasilitas</button>
+          <button type="button" class="dsh-link adm-tab" data-tab="pengguna"><span class="material-symbols-outlined">group</span>Pengguna</button>
+        </nav>
+        <p class="dsh-label">Situs</p>
+        <nav class="dsh-nav">
+          <a class="dsh-link" href="index.html"><span class="material-symbols-outlined">home</span>Beranda</a>
+          <a class="dsh-link" href="cari.html"><span class="material-symbols-outlined">search</span>Cari Kos</a>
+        </nav>
+      </aside>
 
-    <main class="dash-main">
-      <div class="dash-wrap" id="app">
-        <div class="dash-head">
-          <div>
-            <h1>Dashboard Admin</h1>
-            <p class="dash-sub">Periksa kos yang diajukan, kelola fasilitas, dan atur peran pengguna.</p>
+      <div class="dsh-content">
+        <div class="dsh-top">
+          <div class="dsh-crumb">RuangNyaman <span class="material-symbols-outlined">chevron_right</span><b>Dashboard Admin</b></div>
+          <div class="auth-nav" id="authNav"></div>
+        </div>
+
+        <main class="dsh-page" id="app">
+          <div class="dash-head">
+            <div>
+              <h1>Ringkasan Admin</h1>
+              <p class="dash-sub">Periksa kos yang diajukan, kelola fasilitas, dan atur peran pengguna.</p>
+            </div>
           </div>
-        </div>
 
-        <div class="adm-tabs" role="tablist">
-          <button type="button" class="adm-tab active" data-tab="antrean">Antrean <span class="adm-count" id="cAntrean">0</span></button>
-          <button type="button" class="adm-tab" data-tab="kos">Semua Kos</button>
-          <button type="button" class="adm-tab" data-tab="fasilitas">Fasilitas</button>
-          <button type="button" class="adm-tab" data-tab="pengguna">Pengguna</button>
-        </div>
+          <div class="stats">
+            <div class="stat first">
+              <div class="stat-top"><span class="stat-ic"><span class="material-symbols-outlined">apartment</span></span><div><p class="stat-t">Total Kos</p><p class="stat-s">Semua pengajuan</p></div></div>
+              <p class="stat-n" id="sTotal">0</p>
+            </div>
+            <div class="stat">
+              <div class="stat-top"><span class="stat-ic"><span class="material-symbols-outlined">check_circle</span></span><div><p class="stat-t">Tayang</p><p class="stat-s">Tampil di pencarian</p></div></div>
+              <p class="stat-n" id="sAktif">0</p>
+            </div>
+            <div class="stat">
+              <div class="stat-top"><span class="stat-ic"><span class="material-symbols-outlined">hourglass_top</span></span><div><p class="stat-t">Menunggu</p><p class="stat-s">Perlu diperiksa</p></div></div>
+              <p class="stat-n" id="sMenunggu">0</p>
+            </div>
+            <div class="stat">
+              <div class="stat-top"><span class="stat-ic"><span class="material-symbols-outlined">cancel</span></span><div><p class="stat-t">Ditolak</p><p class="stat-s">Perlu perbaikan</p></div></div>
+              <p class="stat-n" id="sDitolak">0</p>
+            </div>
+          </div>
 
-        <p class="dash-notif" id="notif" role="status" hidden></p>
-        <div id="panel">Memuat…</div>
+          <p class="dash-notif" id="notif" role="status" hidden></p>
+          <section class="dsh-panel">
+            <div id="panel">Memuat…</div>
+          </section>
+        </main>
       </div>
-    </main>
+    </div>
 
     <dialog class="adm-dialog" id="dlgTolak">
       <h2 id="judulTolak">Tolak kos</h2>

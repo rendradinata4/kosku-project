@@ -22,35 +22,63 @@
     <link rel="stylesheet" href="css/transitions.css" />
   </head>
   <body>
-    <header class="header">
-      <div class="header-inner">
-        <div class="left">
-          <a class="brand" href="index.html"
-            ><img class="brand-logo" src="img/logo.png" alt="" width="36" height="36" />Ruang<span>Nyaman</span></a
-          >
-          <nav class="nav">
-            <a href="index.html">Beranda</a>
-            <a href="cari.html">Cari Kos</a>
-            <a href="favorit.html">Favorit</a>
-          </nav>
-        </div>
-        <div class="auth-nav" id="authNav"></div>
-      </div>
-    </header>
+    <div class="dsh">
+      <aside class="dsh-side">
+        <a class="dsh-brand" href="index.html"><img src="img/logo.png" alt="" width="34" height="34" /><b>Ruang<span>Nyaman</span></b></a>
+        <p class="dsh-label">Menu utama</p>
+        <nav class="dsh-nav">
+          <a class="dsh-link active" href="dashboard.html"><span class="material-symbols-outlined">dashboard</span>Dashboard</a>
+          <a class="dsh-link" href="form-kos.html"><span class="material-symbols-outlined">add_home</span>Tambah Kos</a>
+        </nav>
+        <p class="dsh-label">Situs</p>
+        <nav class="dsh-nav">
+          <a class="dsh-link" href="index.html"><span class="material-symbols-outlined">home</span>Beranda</a>
+          <a class="dsh-link" href="cari.html"><span class="material-symbols-outlined">search</span>Cari Kos</a>
+        </nav>
+      </aside>
 
-    <main class="dash-main">
-      <div class="dash-wrap" id="app">
-        <div class="dash-head">
-          <div>
-            <h1>Dashboard Pemilik</h1>
-            <p class="dash-sub" id="ringkasan">Memuat…</p>
-          </div>
-          <a class="dash-btn" href="form-kos.html">+ Tambah Kos</a>
+      <div class="dsh-content">
+        <div class="dsh-top">
+          <div class="dsh-crumb">RuangNyaman <span class="material-symbols-outlined">chevron_right</span><b>Dashboard Pemilik</b></div>
+          <div class="auth-nav" id="authNav"></div>
         </div>
-        <p class="dash-notif" id="notif" role="status" hidden></p>
-        <div class="dash-list" id="daftar"></div>
+
+        <main class="dsh-page" id="app">
+          <div class="dash-head">
+            <div>
+              <h1>Ringkasan Kos</h1>
+              <p class="dash-sub" id="ringkasan">Memuat…</p>
+            </div>
+            <a class="dash-btn" href="form-kos.html">+ Tambah Kos</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat first">
+              <div class="stat-top"><span class="stat-ic"><span class="material-symbols-outlined">apartment</span></span><div><p class="stat-t">Total Kos</p><p class="stat-s">Semua kos Anda</p></div></div>
+              <p class="stat-n" id="sTotal">0</p>
+            </div>
+            <div class="stat">
+              <div class="stat-top"><span class="stat-ic"><span class="material-symbols-outlined">check_circle</span></span><div><p class="stat-t">Tayang</p><p class="stat-s">Tampil di pencarian</p></div></div>
+              <p class="stat-n" id="sAktif">0</p>
+            </div>
+            <div class="stat">
+              <div class="stat-top"><span class="stat-ic"><span class="material-symbols-outlined">hourglass_top</span></span><div><p class="stat-t">Menunggu</p><p class="stat-s">Diperiksa admin</p></div></div>
+              <p class="stat-n" id="sMenunggu">0</p>
+            </div>
+            <div class="stat">
+              <div class="stat-top"><span class="stat-ic"><span class="material-symbols-outlined">edit_note</span></span><div><p class="stat-t">Draft / Ditolak</p><p class="stat-s">Perlu dilengkapi</p></div></div>
+              <p class="stat-n" id="sLain">0</p>
+            </div>
+          </div>
+
+          <p class="dash-notif" id="notif" role="status" hidden></p>
+          <section class="dsh-panel">
+            <h2 class="dsh-panel-title">Kos Saya</h2>
+            <div class="dash-list" id="daftar"></div>
+          </section>
+        </main>
       </div>
-    </main>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
     <script src="js/core/supabase.js"></script>

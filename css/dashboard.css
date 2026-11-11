@@ -606,3 +606,345 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Kerangka dashboard (sidebar + topbar + kartu), dipakai dashboard pemilik & admin ===== */
+.dsh {
+  display: grid;
+  grid-template-columns: 248px 1fr;
+  gap: 16px;
+  min-height: 100vh;
+  padding: 16px;
+  background: var(--bg);
+}
+.dsh-side {
+  position: sticky;
+  top: 16px;
+  align-self: start;
+  height: calc(100vh - 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 14px;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #0000000d;
+  box-shadow: var(--shs);
+  overflow-y: auto;
+}
+.dsh-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px 14px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.dsh-brand span {
+  color: var(--p);
+}
+.dsh-brand img {
+  border-radius: 8px;
+}
+.dsh-label {
+  margin: 14px 8px 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a8799;
+}
+.dsh-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.dsh-nav .dsh-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--mut);
+  background: transparent;
+  box-shadow: none;
+  text-align: left;
+  transition: background 0.15s, color 0.15s;
+}
+.dsh-nav .dsh-link:hover {
+  background: var(--low);
+  color: var(--ink);
+}
+.dsh-nav .dsh-link.active {
+  background: linear-gradient(135deg, var(--p), var(--pd));
+  color: #fff;
+  box-shadow: 0 4px 12px #00a86b40;
+}
+.dsh-nav .dsh-link .adm-count {
+  margin-left: auto;
+  background: var(--sc);
+  color: var(--on);
+}
+.dsh-nav .dsh-link.active .adm-count {
+  background: #ffffff33;
+  color: #fff;
+}
+.dsh-content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.dsh-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #0000000d;
+  box-shadow: var(--shs);
+}
+.dsh-crumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.82rem;
+  color: #5a687c;
+}
+.dsh-crumb b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.dsh-top .auth-nav {
+  margin-left: 0;
+}
+.dsh-page {
+  min-width: 0;
+}
+.dsh-page .dash-head {
+  align-items: center;
+}
+.dsh-page .dash-head h1 {
+  font-size: 1.5rem;
+}
+.dsh-page .dash-btn {
+  background: linear-gradient(135deg, var(--p), var(--pd));
+  box-shadow: 0 4px 12px #00a86b33;
+}
+.dsh-page .dash-btn.ghost {
+  background: #fff;
+  box-shadow: none;
+}
+.dsh-page .dash-btn.ghost:hover {
+  background: var(--sc);
+}
+.dsh-page .dash-btn.danger {
+  background: #fff;
+  box-shadow: none;
+}
+.dsh-page .dash-btn.danger:hover {
+  background: #ffebeb;
+}
+
+/* Kartu statistik */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #0000000d;
+  box-shadow: var(--shs);
+}
+.stat-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.stat-ic {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--sc);
+  color: var(--on);
+}
+.stat-t {
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.stat-s {
+  font-size: 0.72rem;
+  color: #5a687c;
+}
+.stat-n {
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.stat.first {
+  background: linear-gradient(135deg, var(--p), var(--pd));
+  color: #fff;
+  border: 0;
+}
+.stat.first .stat-ic {
+  background: #fff;
+  color: var(--pd);
+}
+.stat.first .stat-s {
+  color: #ffffffcc;
+}
+
+/* Panel isi (daftar kos / tabel) */
+.dsh-panel {
+  padding: 18px;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #0000000d;
+  box-shadow: var(--shs);
+}
+.dsh-panel-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+.dsh-panel .dash-card {
+  box-shadow: none;
+  background: var(--bg);
+  border-color: #0000000a;
+}
+.dsh-panel .dash-empty {
+  background: var(--low);
+}
+.dsh-panel .adm-tabel {
+  border: 1px solid #0000000d;
+}
+
+@media (max-width: 1100px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .dsh {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+  .dsh-side {
+    position: static;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 12px;
+    overflow: visible;
+  }
+  .dsh-brand {
+    padding: 0 8px 0 4px;
+  }
+  .dsh-label {
+    display: none;
+  }
+  .dsh-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .dsh-nav .dsh-link {
+    width: auto;
+    padding: 8px 12px;
+  }
+  .dsh-nav .dsh-link .adm-count {
+    margin-left: 4px;
+  }
+}
+@media (max-width: 480px) {
+  .stat-n {
+    font-size: 1.5rem;
+  }
+  .stat {
+    padding: 12px;
+  }
+}
+
+/* Form kos dalam kerangka dashboard */
+.dsh-crumb a:hover {
+  color: var(--pd);
+}
+.dsh-page .form-card {
+  border-radius: 20px;
+  padding: 22px;
+}
+.dsh-page .f-field input,
+.dsh-page .f-field select,
+.dsh-page .f-field textarea,
+.dsh-page .kamar-tabel input,
+.dsh-page .kamar-tabel select,
+.dsh-page .baris-aturan input {
+  background: var(--low);
+  border-color: transparent;
+  border-radius: 12px;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.dsh-page .f-field input:focus,
+.dsh-page .f-field select:focus,
+.dsh-page .f-field textarea:focus,
+.dsh-page .kamar-tabel input:focus,
+.dsh-page .kamar-tabel select:focus,
+.dsh-page .baris-aturan input:focus {
+  background: #fff;
+}
+/* Halaman form: judul, notifikasi, dan form berada di satu kolom yang terpusat */
+.dsh-page.dsh-narrow {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+/* Area drag & drop foto */
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 26px 16px;
+  text-align: center;
+  border: 2px dashed var(--outline);
+  border-radius: 16px;
+  background: var(--low);
+  color: var(--mut);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.dropzone .material-symbols-outlined {
+  font-size: 34px;
+  color: var(--p);
+}
+.dropzone b {
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+.dropzone small {
+  font-size: 0.78rem;
+}
+.dropzone:hover,
+.dropzone.over {
+  border-color: var(--p);
+  background: #e3f7ee;
+}

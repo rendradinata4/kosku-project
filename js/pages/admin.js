@@ -148,14 +148,21 @@ function panelPengguna() {
 // ---------- Pemuatan & tab ----------
 async function muatKos() {
   kos = await Admin.semuaKos();
-  $("#cAntrean").textContent = kos.filter((k) => k.status === "menunggu").length;
+  const hitung = (st) => kos.filter((k) => k.status === st).length;
+  $("#cAntrean").textContent = hitung("menunggu");
+  // Isi angka pada kartu statistik
+  $("#sTotal").textContent = kos.length;
+  $("#sAktif").textContent = hitung("aktif");
+  $("#sMenunggu").textContent = hitung("menunggu");
+  $("#sDitolak").textContent = hitung("ditolak");
 }
 
 async function tampil() {
   document.querySelectorAll(".adm-tab").forEach((b) => b.classList.toggle("active", b.dataset.tab === tab));
   try {
-    if (tab === "antrean") { await muatKos(); panelAntrean(); }
-    else if (tab === "kos") { await muatKos(); panelKos(); }
+    await muatKos(); // selalu dimuat agar kartu statistik dan lencana antrean terbaru
+    if (tab === "antrean") panelAntrean();
+    else if (tab === "kos") panelKos();
     else if (tab === "fasilitas") { fasilitas = await Admin.daftarFasilitas(); panelFasilitas(); }
     else { pengguna = await Admin.daftarPengguna(); panelPengguna(); }
   } catch (err) {

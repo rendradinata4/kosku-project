@@ -240,17 +240,39 @@ $("#btnSamakanHarga").addEventListener("click", () => {
   renderKamar();
 });
 
-$("#fotoInput").addEventListener("change", (e) => {
+// Tambah foto dari daftar file (dipakai oleh tombol pilih file dan drag & drop)
+function tambahFoto(files) {
   const galat = [];
-  for (const file of e.target.files) {
+  for (const file of files) {
     if (state.foto.length >= Owner.MAKS_FOTO) galat.push(`Maksimal ${Owner.MAKS_FOTO} foto per kos.`);
     else if (!JENIS_FOTO.test(file.type)) galat.push(`"${file.name}" bukan JPG, PNG, atau WebP.`);
     else if (file.size > MAKS_UKURAN_ASLI) galat.push(`"${file.name}" lebih dari 15 MB.`);
     else state.foto.push({ file, url: URL.createObjectURL(file) });
   }
-  e.target.value = "";
   renderFoto();
   if (galat.length) tampilPesan([...new Set(galat)]);
+}
+
+$("#fotoInput").addEventListener("change", (e) => {
+  tambahFoto([...e.target.files]); // salin dulu, karena input dikosongkan setelahnya
+  e.target.value = "";
+});
+
+// Drag & drop: area lepas foto
+const zona = $("#dropFoto");
+// Cegah browser membuka file bila terlepas di luar area (mis. di sela-sela form)
+["dragover", "drop"].forEach((ev) => window.addEventListener(ev, (e) => e.preventDefault()));
+zona.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  zona.classList.add("over"); // beri sorotan saat file diseret di atas area
+});
+["dragleave", "dragend"].forEach((ev) =>
+  zona.addEventListener(ev, () => zona.classList.remove("over")),
+);
+zona.addEventListener("drop", (e) => {
+  e.preventDefault();
+  zona.classList.remove("over");
+  tambahFoto([...e.dataTransfer.files]);
 });
 $("#fotoGrid").addEventListener("click", (e) => {
   const utama = e.target.closest("[data-utama]");

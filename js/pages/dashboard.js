@@ -91,8 +91,13 @@ function kartu(k) {
 
 function ringkasan() {
   const hitung = (s) => daftar.filter((k) => k.status === s).length;
+  // Isi angka pada kartu statistik
+  $("#sTotal").textContent = daftar.length;
+  $("#sAktif").textContent = hitung("aktif");
+  $("#sMenunggu").textContent = hitung("menunggu");
+  $("#sLain").textContent = hitung("draft") + hitung("ditolak");
   $("#ringkasan").textContent = daftar.length
-    ? `${daftar.length} kos · ${hitung("aktif")} tayang · ${hitung("menunggu")} menunggu · ${hitung("draft")} draft · ${hitung("ditolak")} ditolak`
+    ? "Berikut ringkasan seluruh kos Anda."
     : "Anda belum memasang kos.";
 }
 
