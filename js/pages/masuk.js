@@ -81,8 +81,10 @@ function setPeran(baru, animasi = true) {
 
 function terjemah(err) {
   const m = ((err && err.message) || "").toLowerCase();
-  if (m.includes("role-pencari"))
-    return "Akun ini terdaftar sebagai pencari kos. Pilih tab Pencari Kos di atas untuk masuk, atau daftar akun pemilik baru.";
+  if (m.includes("salah-tab-pencari"))
+    return "Akun ini terdaftar sebagai pencari kos. Pilih tab Pencari Kos di atas untuk masuk.";
+  if (m.includes("salah-tab-pemilik"))
+    return "Akun ini terdaftar sebagai pemilik kos. Pilih tab Pemilik Kos di atas untuk masuk.";
   if (m.includes("invalid login")) return "Email atau password salah.";
   if (m.includes("email not confirmed"))
     return "Email belum dikonfirmasi. Cek kotak masuk email Anda.";
@@ -130,10 +132,11 @@ $("#formMasuk").addEventListener("submit", (e) => {
   kirim(f, async () => {
     await Auth.signIn(f.elements.email.value.trim(), f.elements.password.value);
     const p = await Auth.profile();
-    // Halaman pemilik hanya untuk akun pemilik (atau admin)
-    if (peran === "pemilik" && p && p.role === "pencari") {
+    // Tiap tab hanya untuk perannya: akun pencari tidak bisa masuk lewat tab Pemilik, dan
+    // sebaliknya. Admin tidak punya tab sendiri, jadi boleh masuk lewat tab mana pun.
+    if (p && p.role !== "admin" && p.role !== peran) {
       await Auth.signOut();
-      throw new Error("role-pencari");
+      throw new Error("salah-tab-" + p.role);
     }
     location.replace(tujuan(p && p.role));
   });
