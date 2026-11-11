@@ -948,3 +948,14 @@
   border-color: var(--p);
   background: #e3f7ee;
 }
+
+/* Status pencarian alamat <-> peta */
+#geoStatus[data-jenis="muat"] {
+  color: #5a687c;
+}
+#geoStatus[data-jenis="ok"] {
+  color: var(--pd);
+}
+#geoStatus[data-jenis="err"] {
+  color: var(--err);
+}

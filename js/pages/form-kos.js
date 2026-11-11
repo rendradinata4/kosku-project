@@ -15,7 +15,70 @@ function tampilPesan(daftar, jenis = "error") {
 }
 
 // ---------- Peta lokasi ----------
-function setTitik(lat, lng) {
+// Alamat <-> titik peta saling terhubung lewat Nominatim (geocoding gratis dari OpenStreetMap):
+//  - klik / geser penanda di peta  -> alamat terisi otomatis (reverse geocoding)
+//  - ketik alamat lalu Enter/pindah kolom -> penanda pindah ke alamat itu (geocoding)
+const NOMINATIM = "https://nominatim.openstreetmap.org";
+let geoSeq = 0; // nomor permintaan terakhir; jawaban lama (basi) diabaikan
+
+function geoStatus(teks, jenis = "") {
+  const el = $("#geoStatus");
+  el.textContent = teks;
+  el.dataset.jenis = jenis; // dipakai CSS untuk warna: muat / ok / err
+}
+
+// Susun alamat gaya Indonesia dari hasil Nominatim: "Jl. Mulyorejo No. 45, Mulyorejo, Surabaya, Jawa Timur"
+function susunAlamat(a, cadangan) {
+  const nama = a.road || a.pedestrian || a.footway || "";
+  const jalan = nama
+    ? nama.replace(/^Jalan\s+/i, "Jl. ") + (a.house_number ? " No. " + a.house_number : "")
+    : "";
+  const bagian = new Set([
+    jalan,
+    a.suburb || a.village || a.neighbourhood,
+    a.city_district,
+    a.city || a.town || a.municipality || a.county,
+    a.state,
+  ].filter(Boolean)); // Set: buang nama kembar (mis. kelurahan dan kecamatan sama-sama "Mulyorejo")
+  return (bagian.size ? [...bagian].join(", ") : cadangan || "").slice(0, 200); // batas kolom alamat 200 huruf
+}
+
+async function isiAlamatDariTitik(lat, lng) {
+  const id = ++geoSeq;
+  geoStatus("Mencari alamat…", "muat");
+  try {
+    const r = await fetch(`${NOMINATIM}/reverse?format=jsonv2&addressdetails=1&zoom=18&accept-language=id&lat=${lat}&lon=${lng}`);
+    const d = await r.json();
+    if (id !== geoSeq) return;
+    if (!d || d.error) return geoStatus("Alamat untuk titik ini tidak ditemukan. Isi alamat secara manual.", "err");
+    document.querySelector("[name=alamat]").value = susunAlamat(d.address || {}, d.display_name);
+    geoStatus("Alamat terisi otomatis dari peta. Periksa dan lengkapi bila perlu (mis. nomor rumah).", "ok");
+  } catch {
+    if (id === geoSeq) geoStatus("Gagal mengambil alamat (cek koneksi). Isi alamat secara manual.", "err");
+  }
+}
+
+async function tandaiDariAlamat() {
+  const q = document.querySelector("[name=alamat]").value.trim();
+  if (!map || q.length < 5) return;
+  const id = ++geoSeq;
+  geoStatus("Mencari lokasi di peta…", "muat");
+  try {
+    const kueri = /surabaya/i.test(q) ? q : q + ", Surabaya"; // situs ini khusus Surabaya
+    const r = await fetch(`${NOMINATIM}/search?format=jsonv2&limit=1&countrycodes=id&accept-language=id&q=${encodeURIComponent(kueri)}`);
+    const d = await r.json();
+    if (id !== geoSeq) return;
+    if (!d[0]) return geoStatus("Alamat tidak ditemukan di peta. Coba tulis lebih sederhana (nama jalan dan kecamatan), atau klik langsung di peta.", "err");
+    setTitik(Number(d[0].lat), Number(d[0].lon)); // tanpa isi ulang alamat, supaya tulisan pengguna tidak tertimpa
+    map.setView([Number(d[0].lat), Number(d[0].lon)], 17);
+    geoStatus("Penanda dipindah sesuai alamat. Geser penanda bila kurang tepat.", "ok");
+  } catch {
+    if (id === geoSeq) geoStatus("Gagal mencari lokasi (cek koneksi). Klik langsung di peta.", "err");
+  }
+}
+
+// isiAlamat = true hanya saat pengguna sendiri menaruh/menggeser penanda
+function setTitik(lat, lng, isiAlamat = false) {
   state.lat = Number(lat.toFixed(7));
   state.lng = Number(lng.toFixed(7));
   if (marker) marker.setLatLng([lat, lng]);
@@ -23,10 +86,11 @@ function setTitik(lat, lng) {
     marker = L.marker([lat, lng], { draggable: true }).addTo(map);
     marker.on("dragend", () => {
       const p = marker.getLatLng();
-      setTitik(p.lat, p.lng);
+      setTitik(p.lat, p.lng, true);
     });
   }
   $("#koordinat").textContent = `${state.lat.toFixed(6)}, ${state.lng.toFixed(6)}`;
+  if (isiAlamat) isiAlamatDariTitik(state.lat, state.lng);
 }
 
 function initPeta(lat, lng) {
@@ -35,11 +99,14 @@ function initPeta(lat, lng) {
     maxZoom: 19,
     attribution: "&copy; kontributor OpenStreetMap",
   }).addTo(map);
-  if (lat != null) setTitik(lat, lng);
-  map.on("click", (e) => setTitik(e.latlng.lat, e.latlng.lng));
+  if (lat != null) setTitik(lat, lng); // kos yang sudah ada: alamat tersimpan tidak diubah
+  map.on("click", (e) => setTitik(e.latlng.lat, e.latlng.lng, true));
   // Pastikan Leaflet mengukur ulang wadahnya setelah tata letak halaman selesai
   setTimeout(() => map.invalidateSize(), 0);
 }
+
+// Mengetik alamat lalu menekan Enter atau pindah ke kolom lain memunculkan event "change"
+document.querySelector("[name=alamat]").addEventListener("change", tandaiDariAlamat);
 
 // ---------- Fasilitas ----------
 function renderFasilitas(daftar) {
