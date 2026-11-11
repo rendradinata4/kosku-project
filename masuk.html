@@ -20,63 +20,126 @@
     <link rel="stylesheet" href="css/auth.css" />
     <link rel="stylesheet" href="css/transitions.css" />
   </head>
-  <body>
-    <header class="header">
-      <div class="header-inner">
-        <div class="left">
-          <a class="brand" href="index.html"
-            ><img class="brand-logo" src="img/logo.png" alt="" width="36" height="36" />Ruang<span>Nyaman</span></a
-          >
-          <nav class="nav">
-            <a href="index.html">Beranda</a>
-            <a href="cari.html">Cari Kos</a>
-            <a href="favorit.html">Favorit</a>
-          </nav>
-        </div>
-        <div class="city">
-          <span class="material-symbols-outlined">location_on</span>Surabaya
-        </div>
-      </div>
-    </header>
-
+  <body class="auth-body">
     <main class="auth-main">
       <div class="auth-card">
-        <div class="auth-tabs">
-          <button type="button" class="auth-tab active" data-tab="masuk">Masuk</button>
-          <button type="button" class="auth-tab" data-tab="daftar">Daftar</button>
-        </div>
+        <section class="auth-panel">
+          <a class="auth-brand" href="index.html"
+            ><img src="img/logo.png" alt="" width="34" height="34" /><b>Ruang<span>Nyaman</span></b></a
+          >
 
-        <p class="auth-msg" id="msg" role="alert" hidden></p>
+          <div class="auth-box">
+            <h1 class="auth-title" id="authTitle">Selamat datang kembali!</h1>
+            <p class="auth-sub" id="authSub">Masuk untuk menyimpan favorit dan menghubungi pemilik kos.</p>
 
-        <form class="auth-form" id="formMasuk">
-          <label class="auth-field">Email
-            <input type="email" name="email" autocomplete="email" required />
-          </label>
-          <label class="auth-field">Password
-            <input type="password" name="password" autocomplete="current-password" required />
-          </label>
-          <button type="submit" class="auth-submit">Masuk</button>
-        </form>
+            <p class="auth-msg" id="msg" role="alert" hidden></p>
 
-        <form class="auth-form" id="formDaftar" hidden>
-          <label class="auth-field">Nama lengkap
-            <input type="text" name="nama" autocomplete="name" required />
-          </label>
-          <label class="auth-field">Email
-            <input type="email" name="email" autocomplete="email" required />
-          </label>
-          <label class="auth-field">No. telepon (opsional)
-            <input type="tel" name="telepon" autocomplete="tel" />
-          </label>
-          <label class="auth-field">Password (minimal 6 karakter)
-            <input type="password" name="password" autocomplete="new-password" minlength="6" required />
-          </label>
-          <label class="auth-check">
-            <input type="checkbox" name="pemilik" />
-            <span>Saya pemilik kos dan ingin memasang kos saya di RuangNyaman</span>
-          </label>
-          <button type="submit" class="auth-submit">Daftar</button>
-        </form>
+            <form class="auth-form" id="formMasuk">
+              <label class="auth-field">Email
+                <input type="email" name="email" autocomplete="email" placeholder="nama@email.com" required />
+              </label>
+              <label class="auth-field">Password
+                <span class="pw-wrap">
+                  <input type="password" name="password" autocomplete="current-password" placeholder="Password Anda" required />
+                  <button type="button" class="pw-toggle">Lihat</button>
+                </span>
+              </label>
+              <button type="submit" class="auth-submit">Masuk</button>
+              <p class="auth-switch">
+                Belum punya akun? <button type="button" class="auth-tab" data-tab="daftar">Daftar</button>
+              </p>
+            </form>
+
+            <form class="auth-form" id="formDaftar" hidden>
+              <label class="auth-field">Nama lengkap
+                <input type="text" name="nama" autocomplete="name" required />
+              </label>
+              <label class="auth-field">Email
+                <input type="email" name="email" autocomplete="email" required />
+              </label>
+              <label class="auth-field">No. telepon (opsional)
+                <input type="tel" name="telepon" autocomplete="tel" />
+              </label>
+              <label class="auth-field">Password (minimal 6 karakter)
+                <span class="pw-wrap">
+                  <input type="password" name="password" autocomplete="new-password" minlength="6" required />
+                  <button type="button" class="pw-toggle">Lihat</button>
+                </span>
+              </label>
+              <label class="auth-check">
+                <input type="checkbox" name="pemilik" />
+                <span>Saya pemilik kos dan ingin memasang kos saya di RuangNyaman</span>
+              </label>
+              <button type="submit" class="auth-submit">Daftar</button>
+              <p class="auth-switch">
+                Sudah punya akun? <button type="button" class="auth-tab" data-tab="masuk">Masuk</button>
+              </p>
+            </form>
+          </div>
+
+          <a class="auth-back" href="index.html">← Kembali ke beranda</a>
+        </section>
+
+        <aside class="auth-art">
+          <svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#3b9ee8" />
+                <stop offset="1" stop-color="#c9f0ff" />
+              </linearGradient>
+              <linearGradient id="h1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#4fb6ee" />
+                <stop offset="1" stop-color="#8fd7f5" />
+              </linearGradient>
+              <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#8df8bd" />
+                <stop offset="1" stop-color="#00a86b" />
+              </linearGradient>
+              <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#4cc98a" />
+                <stop offset="1" stop-color="#006d43" />
+              </linearGradient>
+              <linearGradient id="path" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#f6f7a8" />
+                <stop offset="1" stop-color="#fdf88a" />
+              </linearGradient>
+            </defs>
+            <rect width="400" height="600" fill="url(#sky)" />
+            <circle cx="310" cy="150" r="34" fill="#fff8c9" opacity=".9" />
+            <g fill="#fff" opacity=".92">
+              <ellipse cx="90" cy="250" rx="46" ry="20" />
+              <ellipse cx="125" cy="235" rx="32" ry="22" />
+              <ellipse cx="300" cy="230" rx="40" ry="16" />
+              <ellipse cx="328" cy="218" rx="26" ry="16" />
+            </g>
+            <path d="M0 330 C90 250 170 260 240 320 C300 370 350 300 400 280 V600 H0Z" fill="url(#h1)" />
+            <path d="M0 400 C80 350 170 350 250 395 C320 430 360 390 400 370 V600 H0Z" fill="url(#g1)" />
+            <path d="M0 470 C110 420 230 450 400 440 V600 H0Z" fill="url(#g2)" />
+            <path d="M120 600 C150 540 330 530 250 470 C220 445 230 430 270 425 L330 428 C270 450 290 470 340 500 C390 530 400 560 400 600Z" fill="url(#path)" />
+            <!-- pohon -->
+            <rect x="62" y="372" width="9" height="44" rx="4" fill="#7a5233" />
+            <circle cx="66" cy="352" r="30" fill="#f0c93a" />
+            <circle cx="40" cy="395" r="20" fill="#4cc98a" />
+            <circle cx="92" cy="392" r="18" fill="#2fae72" />
+            <!-- rumah kos -->
+            <g transform="translate(228 318)">
+              <rect x="0" y="34" width="110" height="74" rx="6" fill="#fff" />
+              <path d="M-10 38 L55 -6 L120 38Z" fill="#006d43" />
+              <rect x="14" y="52" width="22" height="22" rx="4" fill="#8df8bd" />
+              <rect x="74" y="52" width="22" height="22" rx="4" fill="#8df8bd" />
+              <rect x="43" y="68" width="24" height="40" rx="5" fill="#00a86b" />
+              <circle cx="62" cy="90" r="2" fill="#fff" />
+              <path d="M55 20c-6-7-17 2-9 10l9 8 9-8c8-8-3-17-9-10z" fill="#8df8bd" transform="translate(0 -6) scale(.9) translate(6 4)" />
+            </g>
+            <!-- semak -->
+            <ellipse cx="205" cy="436" rx="22" ry="12" fill="#4cc98a" />
+            <ellipse cx="358" cy="430" rx="26" ry="13" fill="#2fae72" />
+          </svg>
+          <div class="auth-art-text">
+            Temukan kos yang nyaman di Surabaya
+            <small>Simpan favorit dan hubungi pemilik kos dengan mudah.</small>
+          </div>
+        </aside>
       </div>
     </main>
 

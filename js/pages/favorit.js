@@ -1,4 +1,7 @@
 const $ = (s) => document.querySelector(s);
+
+// Halaman Favorit hanya untuk yang sudah login; jika belum, diarahkan ke halaman masuk
+Auth.require(["pencari", "pemilik", "admin"]);
 let DATA = [];
 let activeTipe = "";
 

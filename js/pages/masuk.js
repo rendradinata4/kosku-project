@@ -14,10 +14,21 @@ function pesan(teks, jenis = "error") {
   el.hidden = !teks;
 }
 
+// Judul dan keterangan di atas formulir untuk tiap mode
+const JUDUL = {
+  masuk: [
+    "Selamat datang kembali!",
+    "Masuk untuk menyimpan favorit dan menghubungi pemilik kos.",
+  ],
+  daftar: [
+    "Buat akun baru",
+    "Daftar gratis untuk mulai menyimpan kos favorit Anda.",
+  ],
+};
+
 function setTab(nama) {
-  document
-    .querySelectorAll(".auth-tab")
-    .forEach((t) => t.classList.toggle("active", t.dataset.tab === nama));
+  $("#authTitle").textContent = JUDUL[nama][0];
+  $("#authSub").textContent = JUDUL[nama][1];
   $("#formMasuk").hidden = nama !== "masuk";
   $("#formDaftar").hidden = nama !== "daftar";
   pesan("");
@@ -55,6 +66,16 @@ async function kirim(form, aksi) {
 document
   .querySelectorAll(".auth-tab")
   .forEach((t) => t.addEventListener("click", () => setTab(t.dataset.tab)));
+
+// Tombol Lihat/Sembunyikan password
+document.querySelectorAll(".pw-toggle").forEach((b) =>
+  b.addEventListener("click", () => {
+    const input = b.previousElementSibling; // kolom password di sebelahnya
+    const tampil = input.type === "password";
+    input.type = tampil ? "text" : "password";
+    b.textContent = tampil ? "Sembunyikan" : "Lihat";
+  }),
+);
 
 $("#formMasuk").addEventListener("submit", (e) => {
   e.preventDefault();

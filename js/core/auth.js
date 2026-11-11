@@ -102,3 +102,53 @@ async function renderAuthNav() {
 }
 
 renderAuthNav();
+
+// ===== Penjaga aksi khusus pengguna yang sudah login =====
+// Aksi terlindungi: tombol favorit, tombol WhatsApp, dan tautan/tab Favorit.
+const SELECTOR_TERLINDUNGI = [
+  ".btn-fav", // tombol hati di kartu halaman Cari
+  ".heart", // tombol hati di kartu beranda
+  "#favTop", // tombol hati di halaman detail
+  "#favBand", // pita "Simpan ke Favorit" di halaman detail
+  "#favChip", // chip filter Favorit di halaman Cari
+  ".btn-wa", // tombol WhatsApp besar (detail)
+  ".btn-wa-mini", // tombol WhatsApp kecil (kartu)
+  'a[href*="favorit.html"]', // tautan menu Favorit
+  'a[href*="fav=1"]', // tautan Favorit di footer
+].join(",");
+
+// Arahkan ke halaman masuk, lalu kembali ke halaman ini setelah login
+function keHalamanMasuk() {
+  const kembali = location.pathname.split("/").pop() + location.search;
+  location.href = "masuk.html?next=" + encodeURIComponent(kembali || "index.html");
+}
+
+let sudahLogin = null; // null = belum diketahui, true/false = hasil pengecekan sesi
+Auth.session().then((s) => {
+  sudahLogin = !!s;
+  // Membuka cari.html?fav=1 langsung tanpa login juga diarahkan ke masuk
+  if (!s && new URLSearchParams(location.search).get("fav")) keHalamanMasuk();
+});
+
+// Fase capture: berjalan sebelum handler lain, jadi bisa membatalkan aksi
+document.addEventListener(
+  "click",
+  async (e) => {
+    const target = e.target.closest(SELECTOR_TERLINDUNGI);
+    if (!target || sudahLogin === true) return; // bukan aksi terlindungi / sudah login: lanjut
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (sudahLogin === null) {
+      // Sesi belum selesai dicek: tunggu dulu
+      sudahLogin = !!(await Auth.session());
+      if (sudahLogin) {
+        target.click(); // sudah login, ulangi klik agar aksinya berjalan
+        return;
+      }
+    }
+    keHalamanMasuk();
+  },
+  true,
+);
