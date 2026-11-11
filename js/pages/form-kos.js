@@ -311,6 +311,8 @@ $("#btnAjukan").addEventListener("click", () => simpan(true));
     }
     kosLama = kos;
     if (kos) isiForm(kos);
+    // Kos baru: isi nomor WhatsApp dari nomor yang didaftarkan saat membuat akun (boleh dikosongkan)
+    else if (profil.no_telepon) document.querySelector("[name=no_whatsapp]").value = profil.no_telepon;
     renderFasilitas(fas);
     renderAturan();
     renderKamar();

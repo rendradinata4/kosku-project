@@ -35,7 +35,7 @@ const Auth = {
     if (!s) return null;
     const { data, error } = await db
       .from("profiles")
-      .select("nama, role")
+      .select("nama, role, no_telepon")
       .eq("id", s.user.id)
       .single();
     if (error || !data) return null;
@@ -77,7 +77,9 @@ const Auth = {
     const p = await this.profile();
     if (!p) {
       const kembali = halamanSaatIni();
-      location.href = "masuk.html?next=" + encodeURIComponent(kembali);
+      // Halaman khusus pemilik membuka halaman masuk langsung di mode pemilik
+      const modePemilik = roles.includes("pemilik") && !roles.includes("pencari") ? "peran=pemilik&" : "";
+      location.href = "masuk.html?" + modePemilik + "next=" + encodeURIComponent(kembali);
       return null;
     }
     return roles.includes(p.role) ? p : { ...p, ditolak: true };

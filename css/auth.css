@@ -54,36 +54,136 @@
   }
 }
 
-/* ===== Halaman masuk / daftar (kartu terbagi: formulir kiri, ilustrasi kanan) ===== */
+/* ===== Halaman masuk / daftar =====
+   Kartu berukuran tetap. Panel formulir dan panel ilustrasi saling bertukar tempat (slide)
+   saat peran diganti: pencari = ilustrasi di kanan, pemilik = ilustrasi di kiri. */
 .auth-body {
   min-height: 100vh;
   background: linear-gradient(160deg, #e3f7ee 0%, var(--bg) 55%, #d9f5e6 100%);
+  transition: background 0.6s;
+}
+.auth-body[data-peran="pemilik"] {
+  background: linear-gradient(160deg, #dcebe3 0%, var(--bg) 55%, #cfe6da 100%);
 }
 .auth-main {
   min-height: 100vh;
-  padding: 24px 20px;
+  padding: 16px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .auth-card {
+  --gap: 12px;
+  position: relative;
   width: 100%;
   max-width: 1040px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  height: min(760px, calc(100vh - 32px)); /* tinggi & lebar sama untuk semua mode */
+  min-height: 600px;
+  overflow: hidden;
   background: #fff;
   border-radius: 32px;
-  padding: 12px;
   border: 1px solid #0000000d;
   box-shadow: var(--shxl);
 }
+.auth-panel,
+.auth-art {
+  position: absolute;
+  top: var(--gap);
+  bottom: var(--gap);
+  width: calc(50% - var(--gap) * 1.5);
+}
 .auth-panel {
+  left: var(--gap);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 28px 32px;
+  padding: 24px 32px;
+  overflow-y: auto;
 }
+.auth-art {
+  right: var(--gap);
+  border-radius: 24px;
+  overflow: hidden;
+}
+.auth-card.ready .auth-panel,
+.auth-card.ready .auth-art {
+  transition: transform 0.7s cubic-bezier(0.77, 0, 0.18, 1);
+}
+/* Mode pemilik: ilustrasi bergeser ke kiri, formulir ke kanan */
+.auth-body[data-peran="pemilik"] .auth-art {
+  transform: translateX(calc(-100% - var(--gap)));
+}
+.auth-body[data-peran="pemilik"] .auth-panel {
+  transform: translateX(calc(100% + var(--gap)));
+}
+
+/* Dua adegan ilustrasi saling pudar */
+.scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s 0.15s;
+}
+.auth-body[data-peran="pencari"] .scene-pencari,
+.auth-body[data-peran="pemilik"] .scene-pemilik {
+  opacity: 1;
+}
+.scene svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.auth-art-text {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 24px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.auth-art-text small {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0.92;
+}
+.auth-points {
+  list-style: none;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.auth-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.auth-points .material-symbols-outlined {
+  font-size: 18px;
+  color: var(--sc);
+}
+
+/* Teks yang berubah sesuai peran */
+[data-isi="pencari"] [data-only="pemilik"],
+[data-isi="pemilik"] [data-only="pencari"] {
+  display: none;
+}
+.auth-box {
+  transition: opacity 0.25s;
+}
+.auth-box.fading {
+  opacity: 0;
+}
+
 .auth-brand {
   display: inline-flex;
   align-items: center;
@@ -102,21 +202,90 @@
 .auth-brand img {
   border-radius: 8px;
 }
+
+/* Pilihan peran (pencari / pemilik) */
+.role-switch {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  max-width: 340px;
+  margin-top: 12px;
+  padding: 4px;
+  border-radius: 9999px;
+  background: var(--low);
+}
+.role-thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: 0 1px 4px #0000001f;
+  transition: transform 0.45s cubic-bezier(0.77, 0, 0.18, 1), background 0.4s;
+}
+.auth-body[data-peran="pemilik"] .role-thumb {
+  transform: translateX(100%);
+  background: #0b3d2a;
+}
+.role-btn {
+  position: relative;
+  z-index: 1;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--mut);
+  transition: color 0.3s;
+}
+.auth-body[data-peran="pencari"] .role-btn[data-peran="pencari"] {
+  color: var(--pd);
+}
+.auth-body[data-peran="pemilik"] .role-btn[data-peran="pemilik"] {
+  color: var(--sc);
+}
+
 .auth-box {
   width: 100%;
   max-width: 340px;
   margin: auto 0;
-  padding: 24px 0;
+  padding: 8px 0;
+}
+.auth-role {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 10px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: var(--sc);
+  color: var(--on);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.auth-role > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.auth-role .material-symbols-outlined {
+  font-size: 15px;
+}
+.auth-body[data-peran="pemilik"] .auth-role {
+  background: #0b3d2a;
+  color: var(--sc);
 }
 .auth-title {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   text-align: center;
   line-height: 1.2;
 }
 .auth-sub {
-  margin: 8px 0 24px;
+  margin: 6px 0 14px;
   font-size: 0.85rem;
   color: var(--mut);
   text-align: center;
@@ -124,7 +293,7 @@
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 9px;
 }
 .auth-form[hidden],
 .auth-msg[hidden] {
@@ -140,7 +309,7 @@
 }
 .auth-field input {
   width: 100%;
-  padding: 0.8rem 0.95rem;
+  padding: 0.62rem 0.95rem;
   border: 1px solid transparent;
   border-radius: 12px;
   font-size: 0.9rem;
@@ -153,7 +322,15 @@
   border-color: var(--p);
   box-shadow: 0 0 0 3px #00a86b33;
 }
-/* Kolom password dengan tombol Lihat/Sembunyi */
+.auth-body[data-peran="pemilik"] .auth-field input:focus {
+  border-color: var(--pd);
+  box-shadow: 0 0 0 3px #006d4333;
+}
+.auth-hint {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: #5a687c;
+}
 .pw-wrap {
   position: relative;
   display: flex;
@@ -173,17 +350,6 @@
 .pw-toggle:hover {
   color: var(--pd);
 }
-.auth-check {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 0.8rem;
-  color: var(--mut);
-}
-.auth-check input {
-  margin-top: 3px;
-  accent-color: var(--p);
-}
 .auth-submit {
   margin-top: 8px;
   padding: 0.85rem;
@@ -195,9 +361,12 @@
   box-shadow: 0 4px 12px #00a86b40;
   transition: transform 0.15s, box-shadow 0.15s;
 }
+.auth-body[data-peran="pemilik"] .auth-submit {
+  background: linear-gradient(135deg, var(--pd), #0b3d2a);
+  box-shadow: 0 4px 12px #0b3d2a59;
+}
 .auth-submit:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px #00a86b59;
 }
 .auth-submit:disabled {
   opacity: 0.6;
@@ -241,52 +410,35 @@
   color: var(--pd);
 }
 
-/* Sisi ilustrasi */
-.auth-art {
-  position: relative;
-  border-radius: 24px;
-  overflow: hidden;
-  min-height: 560px;
-}
-.auth-art svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-.auth-art-text {
-  position: absolute;
-  left: 24px;
-  right: 24px;
-  top: 24px;
-  color: #fff;
-  font-weight: 800;
-  font-size: 1.35rem;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  text-shadow: 0 2px 12px #00497033;
-}
-.auth-art-text small {
-  display: block;
-  margin-top: 6px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  opacity: 0.92;
+@media (prefers-reduced-motion: reduce) {
+  .auth-card.ready .auth-panel,
+  .auth-card.ready .auth-art,
+  .role-thumb,
+  .scene {
+    transition: none;
+  }
 }
 
+/* HP & tablet: ilustrasi disembunyikan, kartu tetap berukuran seragam */
 @media (max-width: 860px) {
   .auth-card {
-    grid-template-columns: 1fr;
     max-width: 460px;
+    height: auto;
+    min-height: 0;
     border-radius: 24px;
   }
   .auth-art {
     display: none;
   }
   .auth-panel {
-    padding: 20px 12px;
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-height: 740px;
+    padding: 24px 16px;
+    transform: none !important;
   }
   .auth-title {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
   }
 }

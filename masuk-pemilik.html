@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Masuk Pemilik Kos – RuangNyaman</title>
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <link rel="stylesheet" href="css/transitions.css" />
+  </head>
+  <body class="auth-body auth-pemilik" data-peran="pemilik">
+    <main class="auth-main">
+      <div class="auth-card">
+        <section class="auth-panel">
+          <a class="auth-brand" href="index.html"
+            ><img src="img/logo.png" alt="" width="34" height="34" /><b>Ruang<span>Nyaman</span></b></a
+          >
+
+          <div class="auth-box">
+            <span class="auth-role"><span class="material-symbols-outlined">key</span>Khusus pemilik kos</span>
+            <h1 class="auth-title" id="authTitle">Masuk ke dashboard pemilik</h1>
+            <p class="auth-sub" id="authSub">Kelola kos, kamar, dan harga Anda di satu tempat.</p>
+
+            <p class="auth-msg" id="msg" role="alert" hidden></p>
+
+            <form class="auth-form" id="formMasuk">
+              <label class="auth-field">Email
+                <input type="email" name="email" autocomplete="email" placeholder="nama@email.com" required />
+              </label>
+              <label class="auth-field">Password
+                <span class="pw-wrap">
+                  <input type="password" name="password" autocomplete="current-password" placeholder="Password Anda" required />
+                  <button type="button" class="pw-toggle">Lihat</button>
+                </span>
+              </label>
+              <button type="submit" class="auth-submit">Masuk sebagai Pemilik</button>
+              <p class="auth-switch">
+                Belum punya akun pemilik? <button type="button" class="auth-tab" data-tab="daftar">Daftar</button>
+              </p>
+            </form>
+
+            <form class="auth-form" id="formDaftar" hidden>
+              <label class="auth-field">Nama lengkap
+                <input type="text" name="nama" autocomplete="name" required />
+              </label>
+              <label class="auth-field">Email
+                <input type="email" name="email" autocomplete="email" required />
+              </label>
+              <label class="auth-field">No. WhatsApp (opsional)
+                <input type="tel" name="telepon" autocomplete="tel" inputmode="tel" placeholder="081234567890" />
+                <small class="auth-hint">Jika diisi, akan terisi otomatis saat Anda menambahkan kos.</small>
+              </label>
+              <label class="auth-field">Password (minimal 6 karakter)
+                <span class="pw-wrap">
+                  <input type="password" name="password" autocomplete="new-password" minlength="6" required />
+                  <button type="button" class="pw-toggle">Lihat</button>
+                </span>
+              </label>
+              <button type="submit" class="auth-submit">Daftar sebagai Pemilik</button>
+              <p class="auth-switch">
+                Sudah punya akun? <button type="button" class="auth-tab" data-tab="masuk">Masuk</button>
+              </p>
+            </form>
+          </div>
+
+          <p class="auth-other">
+            Mencari kos? <a href="masuk.html">Masuk / daftar sebagai pencari</a>
+          </p>
+          <a class="auth-back" href="index.html">← Kembali ke beranda</a>
+        </section>
+
+        <aside class="auth-art">
+          <svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="nsky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#0f1c2e" />
+                <stop offset="1" stop-color="#0b3d2a" />
+              </linearGradient>
+              <linearGradient id="nbld" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#1f6f55" />
+                <stop offset="1" stop-color="#0f4a38" />
+              </linearGradient>
+            </defs>
+            <rect width="400" height="600" fill="url(#nsky)" />
+            <circle cx="130" cy="87" r="1" fill="#fff" opacity="0.9" /><circle cx="212" cy="132" r="1" fill="#fff" opacity="0.5" /><circle cx="44" cy="15" r="1.3" fill="#fff" opacity="0.9" /><circle cx="158" cy="214" r="1" fill="#fff" opacity="0.5" /><circle cx="276" cy="147" r="1.3" fill="#fff" opacity="0.7" /><circle cx="98" cy="221" r="1" fill="#fff" opacity="0.7" /><circle cx="119" cy="251" r="1" fill="#fff" opacity="0.9" /><circle cx="143" cy="214" r="1.3" fill="#fff" opacity="0.5" /><circle cx="94" cy="89" r="1.3" fill="#fff" opacity="0.9" /><circle cx="384" cy="255" r="1.3" fill="#fff" opacity="0.5" /><circle cx="320" cy="96" r="1.8" fill="#fff" opacity="0.7" /><circle cx="269" cy="73" r="1" fill="#fff" opacity="0.5" /><circle cx="252" cy="81" r="1" fill="#fff" opacity="0.9" /><circle cx="163" cy="11" r="1.3" fill="#fff" opacity="0.9" /><circle cx="370" cy="235" r="1.3" fill="#fff" opacity="0.9" /><circle cx="109" cy="115" r="1.3" fill="#fff" opacity="0.9" /><circle cx="157" cy="120" r="1.3" fill="#fff" opacity="0.5" /><circle cx="129" cy="88" r="1.3" fill="#fff" opacity="0.5" /><circle cx="51" cy="21" r="1.3" fill="#fff" opacity="0.9" /><circle cx="153" cy="142" r="1.8" fill="#fff" opacity="0.9" /><circle cx="251" cy="189" r="1.3" fill="#fff" opacity="0.5" /><circle cx="354" cy="60" r="1" fill="#fff" opacity="0.7" /><circle cx="113" cy="172" r="1.8" fill="#fff" opacity="0.7" /><circle cx="151" cy="57" r="1.3" fill="#fff" opacity="0.7" /><circle cx="311" cy="92" r="1.8" fill="#fff" opacity="0.9" /><circle cx="111" cy="241" r="1.3" fill="#fff" opacity="0.5" /><circle cx="41" cy="191" r="1" fill="#fff" opacity="0.7" /><circle cx="308" cy="167" r="1" fill="#fff" opacity="0.5" /><circle cx="179" cy="249" r="1" fill="#fff" opacity="0.7" /><circle cx="245" cy="16" r="1" fill="#fff" opacity="0.7" /><circle cx="367" cy="31" r="1.3" fill="#fff" opacity="0.9" /><circle cx="355" cy="255" r="1.3" fill="#fff" opacity="0.5" /><circle cx="175" cy="83" r="1.3" fill="#fff" opacity="0.5" /><circle cx="343" cy="115" r="1.8" fill="#fff" opacity="0.9" /><circle cx="49" cy="85" r="1.8" fill="#fff" opacity="0.5" /><circle cx="237" cy="84" r="1" fill="#fff" opacity="0.7" /><circle cx="205" cy="163" r="1" fill="#fff" opacity="0.7" /><circle cx="303" cy="12" r="1.3" fill="#fff" opacity="0.5" /><circle cx="242" cy="53" r="1.3" fill="#fff" opacity="0.7" /><circle cx="158" cy="156" r="1" fill="#fff" opacity="0.7" />
+            <circle cx="320" cy="215" r="26" fill="#fff8c9" />
+            <rect x="90" y="270" width="200" height="250" rx="10" fill="url(#nbld)" />
+            <rect x="80" y="258" width="220" height="20" rx="6" fill="#00a86b" />
+            <rect x="110" y="300" width="22" height="28" rx="4" fill="#2b4f46" /><rect x="148" y="300" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="186" y="300" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="224" y="300" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="110" y="346" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="148" y="346" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="186" y="346" width="22" height="28" rx="4" fill="#2b4f46" /><rect x="224" y="346" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="110" y="392" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="148" y="392" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="186" y="392" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="224" y="392" width="22" height="28" rx="4" fill="#2b4f46" /><rect x="110" y="438" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="148" y="438" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="186" y="438" width="22" height="28" rx="4" fill="#2b4f46" /><rect x="224" y="438" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="110" y="484" width="22" height="28" rx="4" fill="#2b4f46" /><rect x="148" y="484" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="186" y="484" width="22" height="28" rx="4" fill="#fdf88a" /><rect x="224" y="484" width="22" height="28" rx="4" fill="#fdf88a" />
+            <rect x="170" y="470" width="40" height="50" rx="6" fill="#8df8bd" />
+            <circle cx="202" cy="496" r="2.5" fill="#0b3d2a" />
+            <rect x="0" y="520" width="400" height="80" fill="#08291d" />
+            <ellipse cx="60" cy="522" rx="34" ry="16" fill="#0f4a38" />
+            <ellipse cx="340" cy="524" rx="40" ry="18" fill="#0f4a38" />
+          </svg>
+          <div class="auth-art-text">
+            Pasang kos Anda di RuangNyaman
+            <ul class="auth-points">
+              <li><span class="material-symbols-outlined">check_circle</span>Daftarkan kos dan kamar dengan mudah</li>
+              <li><span class="material-symbols-outlined">check_circle</span>Atur harga dan ketersediaan kapan saja</li>
+              <li><span class="material-symbols-outlined">check_circle</span>Calon penghuni menghubungi langsung lewat WhatsApp</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
+    <script src="js/core/supabase.js"></script>
+    <script src="js/core/auth.js"></script>
+    <script src="js/pages/masuk.js"></script>
+  </body>
+</html>

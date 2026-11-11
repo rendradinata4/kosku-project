@@ -10,7 +10,7 @@ const urut = (a) => [...a].sort((x, y) => x.urutan - y.urutan);
 
 let profil;
 let tab = "antrean";
-let kos = [], fasilitas = [], pengguna = [];
+let kos = [], fasilitas = [];
 let filterStatus = "", cariTeks = "";
 let tolakId = null;
 
@@ -129,22 +129,6 @@ function panelFasilitas() {
     <p class="f-hint" style="margin-top:10px">Ikon di halaman publik hanya tersedia untuk fasilitas bawaan (AC, Wi-Fi, Kamar Mandi Dalam, Kasur, Lemari). Fasilitas baru tetap tampil di halaman detail.</p>`;
 }
 
-// ---------- Pengguna ----------
-function panelPengguna() {
-  $("#panel").innerHTML = `<div class="adm-scroll"><table class="adm-tabel"><thead><tr><th>Nama</th><th>Telepon</th><th>Kos</th><th>Peran</th><th></th></tr></thead><tbody>
-    ${pengguna.map((u) => {
-      const saya = u.id === profil.id;
-      return `<tr data-user="${esc(u.id)}">
-        <td>${esc(u.nama)}${saya ? " <small>(Anda)</small>" : ""}</td>
-        <td>${esc(u.no_telepon || "-")}</td>
-        <td>${u.kos && u.kos[0] ? u.kos[0].count : 0}</td>
-        <td><select data-peran aria-label="Peran" ${saya ? "disabled" : ""}>${Admin.PERAN.map((r) => `<option value="${r}" ${u.role === r ? "selected" : ""}>${r}</option>`).join("")}</select></td>
-        <td class="adm-aksi">${saya ? "" : `<button type="button" class="dash-btn ghost" data-aksi="peran-simpan" data-id="${esc(u.id)}">Simpan</button>`}</td></tr>`;
-    }).join("")}
-    </tbody></table></div>
-    <p class="f-hint" style="margin-top:10px">Mengubah peran menjadi pencari tidak menghapus kos milik pengguna itu. Anda tidak bisa mengubah peran akun sendiri.</p>`;
-}
-
 // ---------- Pemuatan & tab ----------
 async function muatKos() {
   kos = await Admin.semuaKos();
@@ -163,8 +147,7 @@ async function tampil() {
     await muatKos(); // selalu dimuat agar kartu statistik dan lencana antrean terbaru
     if (tab === "antrean") panelAntrean();
     else if (tab === "kos") panelKos();
-    else if (tab === "fasilitas") { fasilitas = await Admin.daftarFasilitas(); panelFasilitas(); }
-    else { pengguna = await Admin.daftarPengguna(); panelPengguna(); }
+    else { fasilitas = await Admin.daftarFasilitas(); panelFasilitas(); }
   } catch (err) {
     $("#panel").innerHTML = "";
     notif("Gagal memuat data: " + ((err && err.message) || "coba lagi."), "error");
@@ -217,10 +200,6 @@ async function jalankan(aksi, id, elemen) {
       if (!confirm(`Hapus fasilitas "${f.nama}"?${n ? ` Fasilitas ini akan dilepas dari ${n} kos.` : ""}`)) return;
       await Admin.hapusFasilitas(id);
       notif("Fasilitas dihapus.");
-    } else if (aksi === "peran-simpan") {
-      const peran = elemen.closest("tr").querySelector("[data-peran]").value;
-      await Admin.ubahRole(id, peran);
-      notif("Peran diperbarui.");
     }
     await tampil();
   } catch (err) {

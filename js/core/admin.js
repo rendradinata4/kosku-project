@@ -12,7 +12,6 @@ const KOS_ADMIN_SELECT = `
 `;
 
 const Admin = {
-  PERAN: ["pencari", "pemilik", "admin"],
 
   // Daftar kelengkapan yang harus terpenuhi sebelum kos disetujui (database memeriksa hal yang sama)
   kelengkapan(k) {
@@ -67,11 +66,4 @@ const Admin = {
     if (!baris || !baris.length) throw new Error("Fasilitas tidak ditemukan.");
   },
 
-  // ---------- Pengguna ----------
-  async daftarPengguna() {
-    return cek(await db.from("profiles").select("id, nama, no_telepon, role, created_at, kos!user_id ( count )").order("created_at", { ascending: true }));
-  },
-  async ubahRole(userId, role) {
-    cek(await db.rpc("ubah_role", { p_user_id: userId, p_role: role }));
-  },
 };
