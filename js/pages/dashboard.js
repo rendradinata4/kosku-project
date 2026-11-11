@@ -92,6 +92,7 @@ function kartu(k) {
 function ringkasan() {
   const hitung = (s) => daftar.filter((k) => k.status === s).length;
   // Isi angka pada kartu statistik
+  document.querySelectorAll(".stat-n").forEach((e) => e.classList.remove("sk")); // hilangkan skeleton angka
   $("#sTotal").textContent = daftar.length;
   $("#sAktif").textContent = hitung("aktif");
   $("#sMenunggu").textContent = hitung("menunggu");
@@ -174,6 +175,7 @@ $("#daftar").addEventListener("click", (e) => {
   try {
     await muat();
   } catch (err) {
+    $("#daftar").innerHTML = ""; // buang skeleton bila gagal memuat
     notif(
       "Gagal memuat data: " + ((err && err.message) || "coba lagi."),
       "error",

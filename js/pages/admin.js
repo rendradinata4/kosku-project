@@ -134,7 +134,8 @@ async function muatKos() {
   kos = await Admin.semuaKos();
   const hitung = (st) => kos.filter((k) => k.status === st).length;
   $("#cAntrean").textContent = hitung("menunggu");
-  // Isi angka pada kartu statistik
+  // Isi angka pada kartu statistik (skeleton angka dihilangkan)
+  document.querySelectorAll(".stat-n").forEach((e) => e.classList.remove("sk"));
   $("#sTotal").textContent = kos.length;
   $("#sAktif").textContent = hitung("aktif");
   $("#sMenunggu").textContent = hitung("menunggu");
