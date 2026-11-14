@@ -11,6 +11,11 @@ const STATUS = {
     kelas: "st-menunggu",
     info: "Sedang diperiksa admin.",
   },
+  menunggu_pembayaran: {
+    label: "Menunggu pembayaran",
+    kelas: "st-bayar",
+    info: "Disetujui admin. Bayar biaya publikasi agar kos tampil di pencarian.",
+  },
   aktif: {
     label: "Tayang",
     kelas: "st-aktif",
@@ -32,6 +37,13 @@ const PESAN = {
 
 let profil;
 let daftar = [];
+let bayarSaya = []; // pembayaran lunas milik pemilik ini (untuk menampilkan masa tayang)
+
+// Tanggal tayang terakhir sebuah kos berdasarkan pembayaran lunas (null jika belum ada)
+function tayangSampai(kosId) {
+  const t = bayarSaya.filter((b) => String(b.kos_id) === String(kosId)).map((b) => new Date(b.aktif_sampai).getTime());
+  return t.length ? new Date(Math.max(...t)).toISOString() : null;
+}
 
 function notif(teks, jenis = "ok") {
   const el = $("#notif");
@@ -64,7 +76,18 @@ function kartu(k) {
     aksi.push(
       `<button type="button" class="dash-btn ghost" data-aksi="tarik" data-id="${k.id}">Tarik pengajuan</button>`,
     );
+  if (k.status === "menunggu_pembayaran") {
+    aksi.push(
+      `<button type="button" class="dash-btn" data-aksi="bayar" data-id="${k.id}">Bayar &amp; tayangkan</button>`,
+    );
+    aksi.push(
+      `<button type="button" class="dash-btn ghost" data-aksi="tarik" data-id="${k.id}">Batalkan</button>`,
+    );
+  }
   if (k.status === "aktif") {
+    aksi.push(
+      `<button type="button" class="dash-btn" data-aksi="bayar" data-id="${k.id}">Perpanjang</button>`,
+    );
     aksi.push(
       `<a class="dash-btn ghost" href="detail.html?id=${k.id}">Lihat di situs</a>`,
     );
@@ -76,13 +99,16 @@ function kartu(k) {
     `<button type="button" class="dash-btn danger" data-aksi="hapus" data-id="${k.id}">Hapus</button>`,
   );
 
+  const sampai = k.status === "aktif" ? tayangSampai(k.id) : null;
+  const info = sampai ? `${st.info} Tayang sampai ${Pembayaran.tanggal(sampai)}.` : st.info;
+
   return `<article class="dash-card">
     <div class="dash-thumb">${thumb}</div>
     <div class="dash-info">
       <div class="dash-row"><h2>${esc(k.nama)}</h2><span class="dash-badge ${st.kelas}">${st.label}</span></div>
       <p class="dash-meta">${esc(k.tipe)} · ${esc(k.alamat)}</p>
       <p class="dash-meta">${tersedia} dari ${k.kamar.length} kamar tersedia · mulai ${mulai}</p>
-      <p class="dash-hint">${st.info}</p>
+      <p class="dash-hint">${info}</p>
       ${k.status === "ditolak" ? `<p class="dash-alasan"><b>Alasan penolakan:</b> ${esc(k.alasan_penolakan || "-")}</p>` : ""}
       <div class="dash-actions">${aksi.join("")}</div>
     </div>
@@ -95,7 +121,7 @@ function ringkasan() {
   document.querySelectorAll(".stat-n").forEach((e) => e.classList.remove("sk")); // hilangkan skeleton angka
   $("#sTotal").textContent = daftar.length;
   $("#sAktif").textContent = hitung("aktif");
-  $("#sMenunggu").textContent = hitung("menunggu");
+  $("#sMenunggu").textContent = hitung("menunggu") + hitung("menunggu_pembayaran");
   $("#sLain").textContent = hitung("draft") + hitung("ditolak");
   $("#ringkasan").textContent = daftar.length
     ? "Berikut ringkasan seluruh kos Anda."
@@ -104,6 +130,7 @@ function ringkasan() {
 
 async function muat() {
   daftar = await Owner.daftarKos(profil.id);
+  bayarSaya = await Pembayaran.milikSaya(profil.id).catch(() => []); // gagal = anggap belum ada
   ringkasan();
   $("#daftar").innerHTML = daftar.length
     ? daftar.map(kartu).join("")
@@ -140,6 +167,9 @@ async function jalankan(aksi, id) {
       if (!confirm(pesan)) return;
       await Owner.ubahStatus(id, "draft");
       notif("Kos dikembalikan ke draft.", "ok");
+    } else if (aksi === "bayar") {
+      bukaBayar(k);
+      return;
     } else if (aksi === "hapus") {
       if (
         !confirm(
@@ -155,6 +185,104 @@ async function jalankan(aksi, id) {
     notif("Gagal: " + ((err && err.message) || "coba lagi."), "error");
   }
 }
+
+// ---------- Pembayaran: pilih paket -> QR -> menunggu dipindai ----------
+let bayarKos = null; // kos yang sedang dibayar
+let paketDipilih = 3; // paket awal: 3 bulan
+let kodeAktif = null; // kode transaksi yang sedang dipantau
+let pantau; // interval pemantau status
+let hitung; // interval hitung mundur
+
+const dlgBayar = $("#dlgBayar");
+const tampilBayar = (bagian) => {
+  ["bayarPilih", "bayarQr", "bayarOk"].forEach((id) => ($("#" + id).hidden = id !== bagian));
+  $("#errBayar").hidden = true;
+};
+function hentikanPantau() {
+  clearInterval(pantau);
+  clearInterval(hitung);
+  kodeAktif = null;
+}
+function tutupBayar() {
+  hentikanPantau();
+  dlgBayar.close();
+}
+
+function bukaBayar(k) {
+  bayarKos = k;
+  $("#judulBayar").textContent = (k.status === "aktif" ? "Perpanjang: " : "Bayar publikasi: ") + k.nama;
+  $("#paketList").innerHTML = Pembayaran.PAKET.map(
+    (p) => `<label class="paket ${p.bulan === paketDipilih ? "on" : ""}">
+      <input type="radio" name="paket" value="${p.bulan}" ${p.bulan === paketDipilih ? "checked" : ""}>
+      <span><b>${p.label}</b>${p.hemat ? `<small class="paket-hemat">${p.hemat}</small>` : ""}</span>
+      <strong>${rp(p.harga)}</strong></label>`,
+  ).join("");
+  tampilBayar("bayarPilih");
+  dlgBayar.showModal();
+}
+
+$("#paketList").addEventListener("change", (e) => {
+  paketDipilih = Number(e.target.value);
+  document.querySelectorAll(".paket").forEach((l) => l.classList.toggle("on", l.querySelector("input").checked));
+});
+
+$("#btnBuatQr").addEventListener("click", async () => {
+  const tombol = $("#btnBuatQr");
+  tombol.disabled = true;
+  try {
+    const t = await Pembayaran.buat(bayarKos.id, paketDipilih);
+    kodeAktif = t.kode;
+    const url = Pembayaran.urlBayar(t.kode);
+    $("#qrKode").innerHTML = "";
+    new QRCode($("#qrKode"), { text: url, width: 200, height: 200, correctLevel: QRCode.CorrectLevel.M });
+    $("#qrNominal").textContent = rp(t.nominal);
+    $("#linkBayar").href = url;
+    $("#qrLokal").hidden = !/^(localhost|127\.|\[::1\])/.test(location.hostname);
+    tampilBayar("bayarQr");
+    mulaiPantau(t);
+  } catch (err) {
+    $("#errBayar").hidden = false;
+    $("#errBayar").textContent = "Gagal membuat QR: " + ((err && err.message) || "coba lagi.");
+  } finally {
+    tombol.disabled = false;
+  }
+});
+
+// Cek status transaksi tiap 2 detik; jika lunas, tampilkan hasil dan muat ulang daftar kos
+function mulaiPantau(t) {
+  const batas = new Date(t.kedaluwarsa_pada).getTime();
+  const tik = () => {
+    const s = Math.max(0, Math.round((batas - Date.now()) / 1000));
+    $("#qrSisa").textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+    if (s === 0) {
+      hentikanPantau();
+      tampilBayar("bayarPilih");
+      $("#errBayar").hidden = false;
+      $("#errBayar").textContent = "QR kedaluwarsa. Pilih paket dan buat QR baru.";
+    }
+  };
+  tik();
+  hitung = setInterval(tik, 1000);
+  pantau = setInterval(async () => {
+    try {
+      const r = await Pembayaran.status(t.kode);
+      if (!r || r.status !== "lunas" || kodeAktif !== t.kode) return;
+      hentikanPantau();
+      $("#bayarOkInfo").textContent = `Kos "${bayarKos.nama}" tayang sampai ${Pembayaran.tanggal(r.aktif_sampai)}.`;
+      tampilBayar("bayarOk");
+      setTimeout(async () => {
+        if (dlgBayar.open) dlgBayar.close();
+        await muat();
+      }, 2200);
+    } catch {
+      /* gangguan sesaat: coba lagi pada putaran berikutnya */
+    }
+  }, 2000);
+}
+
+$("#btnBatalBayar").addEventListener("click", tutupBayar);
+$("#btnTutupQr").addEventListener("click", tutupBayar);
+dlgBayar.addEventListener("close", hentikanPantau); // juga saat ditutup dengan tombol Esc
 
 $("#daftar").addEventListener("click", (e) => {
   const b = e.target.closest("[data-aksi]");

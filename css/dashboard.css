@@ -158,6 +158,10 @@
   background: #fdf3d8;
   color: #945800;
 }
+.st-bayar {
+  background: #dbeafe;
+  color: #1e4fa8;
+}
 .st-aktif {
   background: var(--sc, #8df8bd);
   color: var(--on, #007349);
@@ -958,4 +962,136 @@
 }
 #geoStatus[data-jenis="err"] {
   color: var(--err);
+}
+
+/* ===== Pembayaran (dialog QR di dashboard pemilik) ===== */
+.paket-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0 16px;
+}
+.paket {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 2px solid var(--outline);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.paket.on {
+  border-color: var(--p);
+  background: #e3f7ee;
+}
+.paket input {
+  accent-color: var(--p);
+}
+.paket span {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+.paket-hemat {
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: var(--sc);
+  color: var(--on);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+.qr-box {
+  display: grid;
+  place-items: center;
+  width: 232px;
+  height: 232px;
+  margin: 14px auto 8px;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--outline);
+  background: #fff;
+}
+.qr-nominal {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.qr-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+  font-size: 0.82rem;
+  color: var(--mut);
+}
+.qr-spin {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--outline);
+  border-top-color: var(--p);
+  border-radius: 50%;
+  animation: qr-putar 0.8s linear infinite;
+}
+@keyframes qr-putar {
+  to { transform: rotate(360deg); }
+}
+.bayar-sukses {
+  text-align: center;
+  padding: 18px 0;
+}
+.bayar-sukses .material-symbols-outlined {
+  font-size: 64px;
+  color: var(--p);
+}
+.bayar-sukses h3 {
+  margin: 4px 0;
+}
+.bayar-sukses p {
+  font-size: 0.85rem;
+  color: var(--mut);
+}
+
+/* ===== Keuangan admin ===== */
+.keu-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 190px;
+  padding: 8px 4px 0;
+}
+.keu-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  min-width: 0;
+}
+.keu-val {
+  min-height: 1em;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--pd);
+}
+.keu-bar {
+  width: 100%;
+  max-width: 56px;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(180deg, var(--p), var(--pd));
+}
+.keu-lbl {
+  font-size: 0.72rem;
+  color: var(--mut);
+  text-transform: capitalize;
+}
+@media (prefers-reduced-motion: reduce) {
+  .qr-spin { animation: none; }
 }

@@ -1,0 +1,127 @@
+/* Halaman bayar (dibuka dari HP setelah memindai QR) */
+.bayar-body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 16px;
+  background: linear-gradient(160deg, #e3f7ee 0%, var(--bg) 60%);
+}
+.bayar-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 22px;
+  background: #fff;
+  border-radius: 24px;
+  border: 1px solid #0000000d;
+  box-shadow: var(--shxl);
+}
+.bayar-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+.bayar-top img {
+  border-radius: 8px;
+}
+.bayar-top span {
+  color: var(--p);
+}
+.bayar-sim {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 14px 0 18px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #fdf3d8;
+  color: #945800;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+.bayar-sim .material-symbols-outlined {
+  font-size: 18px;
+}
+.bayar-label {
+  font-size: 0.78rem;
+  color: var(--mut);
+}
+.bayar-nominal {
+  margin: 2px 0 16px;
+  font-size: 2.1rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.bayar-rincian {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  background: var(--low);
+  font-size: 0.85rem;
+}
+.bayar-rincian div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.bayar-rincian dt {
+  color: var(--mut);
+}
+.bayar-rincian dd {
+  font-weight: 700;
+  text-align: right;
+}
+.bayar-btn {
+  width: 100%;
+  padding: 0.95rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--p), var(--pd));
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  box-shadow: 0 6px 16px #00a86b40;
+}
+.bayar-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.bayar-sisa {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--mut);
+}
+.bayar-err {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #ffebeb;
+  color: var(--err);
+  font-size: 0.82rem;
+}
+.bayar-hasil {
+  text-align: center;
+  padding: 18px 0 6px;
+}
+.bayar-hasil .material-symbols-outlined {
+  font-size: 64px;
+}
+.bayar-hasil.ok .material-symbols-outlined {
+  color: var(--p);
+}
+.bayar-hasil.gagal .material-symbols-outlined {
+  color: #945800;
+}
+.bayar-hasil h1 {
+  margin: 6px 0;
+  font-size: 1.3rem;
+}
+.bayar-hasil p {
+  font-size: 0.85rem;
+  color: var(--mut);
+}

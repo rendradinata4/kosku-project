@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Pembayaran – RuangNyaman</title>
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/bayar.css" />
+  </head>
+  <body class="bayar-body">
+    <main class="bayar-card">
+      <div class="bayar-top">
+        <img src="img/logo.png" alt="" width="32" height="32" />
+        <b>Ruang<span>Nyaman</span></b>
+      </div>
+      <p class="bayar-sim"><span class="material-symbols-outlined">science</span>Simulasi pembayaran — tidak ada uang sungguhan yang berpindah</p>
+
+      <!-- Isi diganti oleh js/pages/bayar.js sesuai keadaan transaksi -->
+      <div id="isi">
+        <div class="sk" style="height: 20px; width: 50%"></div>
+        <div class="sk" style="height: 52px; margin-top: 14px"></div>
+        <div class="sk" style="height: 96px; margin-top: 14px"></div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
+    <script src="js/core/supabase.js"></script>
+    <script src="js/core/util.js"></script>
+    <script src="js/pages/bayar.js"></script>
+  </body>
+</html>

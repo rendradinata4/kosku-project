@@ -80,11 +80,43 @@
       </div>
     </div>
 
+    <!-- Dialog pembayaran: pilih paket, lalu tampilkan QR -->
+    <dialog class="adm-dialog bayar-dlg" id="dlgBayar">
+      <h2 id="judulBayar">Bayar biaya publikasi</h2>
+      <div id="bayarPilih">
+        <p class="f-hint">Pilih lama kos Anda tayang di RuangNyaman.</p>
+        <div class="paket-list" id="paketList"></div>
+        <div class="f-actions">
+          <button type="button" class="dash-btn ghost" id="btnBatalBayar">Batal</button>
+          <button type="button" class="dash-btn" id="btnBuatQr">Buat QR pembayaran</button>
+        </div>
+      </div>
+      <div id="bayarQr" hidden>
+        <div class="qr-box"><div id="qrKode"></div></div>
+        <p class="qr-nominal" id="qrNominal"></p>
+        <p class="f-hint" style="text-align: center">Pindai QR dengan kamera HP, lalu tekan <b>Bayar</b> di halaman yang terbuka.</p>
+        <p class="qr-status"><span class="qr-spin"></span>Menunggu pembayaran… <b id="qrSisa"></b></p>
+        <p class="f-hint" id="qrLokal" hidden style="text-align: center">Anda membuka situs lewat alamat lokal, jadi HP tidak bisa membuka QR ini. Buka situs lewat link Vercel.</p>
+        <p class="f-hint" style="text-align: center"><a id="linkBayar" href="#" target="_blank" rel="noopener">Atau buka halaman bayar di tab baru (tanpa HP)</a></p>
+        <div class="f-actions"><button type="button" class="dash-btn ghost" id="btnTutupQr">Tutup</button></div>
+      </div>
+      <div id="bayarOk" hidden>
+        <div class="bayar-sukses">
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">check_circle</span>
+          <h3>Pembayaran berhasil</h3>
+          <p id="bayarOkInfo"></p>
+        </div>
+      </div>
+      <p class="dash-notif error" id="errBayar" hidden></p>
+    </dialog>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
     <script src="js/core/supabase.js"></script>
     <script src="js/core/util.js"></script>
     <script src="js/core/auth.js"></script>
     <script src="js/core/owner.js"></script>
+    <script src="js/core/pembayaran.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="js/pages/dashboard.js"></script>
   </body>
 </html>

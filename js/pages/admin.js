@@ -3,6 +3,7 @@ const $ = (s) => document.querySelector(s);
 const STATUS = {
   draft: { label: "Draft", kelas: "st-draft" },
   menunggu: { label: "Menunggu persetujuan", kelas: "st-menunggu" },
+  menunggu_pembayaran: { label: "Menunggu pembayaran", kelas: "st-bayar" },
   aktif: { label: "Tayang", kelas: "st-aktif" },
   ditolak: { label: "Ditolak", kelas: "st-ditolak" },
 };
@@ -10,7 +11,7 @@ const urut = (a) => [...a].sort((x, y) => x.urutan - y.urutan);
 
 let profil;
 let tab = "antrean";
-let kos = [], fasilitas = [];
+let kos = [], fasilitas = [], transaksi = [];
 let filterStatus = "", cariTeks = "";
 let tolakId = null;
 
@@ -129,6 +130,63 @@ function panelFasilitas() {
     <p class="f-hint" style="margin-top:10px">Ikon di halaman publik hanya tersedia untuk fasilitas bawaan (AC, Wi-Fi, Kamar Mandi Dalam, Kasur, Lemari). Fasilitas baru tetap tampil di halaman detail.</p>`;
 }
 
+// ---------- Keuangan ----------
+const ringkasUang = (n) => (n >= 1e6 ? (n / 1e6).toFixed(1).replace(".", ",") + " jt" : Math.round(n / 1e3) + " rb");
+
+// Transaksi menunggu yang waktunya sudah lewat dianggap kedaluwarsa
+function statusTransaksi(t) {
+  return t.status === "pending" && new Date(t.kedaluwarsa_pada) < new Date() ? "kedaluwarsa" : t.status;
+}
+
+function panelKeuangan() {
+  const lunas = transaksi.filter((t) => t.status === "lunas");
+  const sekarang = new Date();
+  const jumlah = (daftar) => daftar.reduce((s, t) => s + t.nominal, 0);
+  const sebulan = (t, d) => {
+    const x = new Date(t.dibayar_pada);
+    return x.getMonth() === d.getMonth() && x.getFullYear() === d.getFullYear();
+  };
+  const bulanIni = jumlah(lunas.filter((t) => sebulan(t, sekarang)));
+  const menunggu = transaksi.filter((t) => statusTransaksi(t) === "pending").length;
+
+  // Pendapatan 6 bulan terakhir untuk grafik batang
+  const bulan = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(sekarang.getFullYear(), sekarang.getMonth() - i, 1);
+    bulan.push({ label: d.toLocaleDateString("id-ID", { month: "short" }), total: jumlah(lunas.filter((t) => sebulan(t, d))) });
+  }
+  const maks = Math.max(...bulan.map((b) => b.total), 1);
+
+  const ubin = (judul, sub, angka, pertama) => `<div class="stat${pertama ? " first" : ""}">
+    <div class="stat-top"><div><p class="stat-t">${judul}</p><p class="stat-s">${sub}</p></div></div>
+    <p class="stat-n">${angka}</p></div>`;
+
+  const baris = transaksi.map((t) => {
+    const st = statusTransaksi(t);
+    const kelas = { lunas: "st-aktif", pending: "st-menunggu", kedaluwarsa: "st-draft" }[st] || "st-draft";
+    const label = { lunas: "Lunas", pending: "Menunggu", kedaluwarsa: "Kedaluwarsa" }[st] || st;
+    const waktu = Pembayaran.tanggal(t.dibayar_pada || t.dibuat_pada);
+    return `<tr><td>${waktu}</td><td>${esc(t.nama_kos)}</td><td>${esc(t.nama_pemilik || "-")}</td>
+      <td>${t.bulan} bln</td><td><b>${rp(t.nominal)}</b></td><td><span class="dash-badge ${kelas}">${label}</span></td></tr>`;
+  }).join("");
+
+  $("#panel").innerHTML = `<div class="stats" style="margin-bottom:18px">
+      ${ubin("Total pendapatan", "Semua pembayaran lunas", rp(jumlah(lunas)), true)}
+      ${ubin("Bulan ini", sekarang.toLocaleDateString("id-ID", { month: "long", year: "numeric" }), rp(bulanIni))}
+      ${ubin("Transaksi lunas", "Jumlah pembayaran", lunas.length)}
+      ${ubin("Menunggu bayar", "QR belum dipindai", menunggu)}
+    </div>
+    <h3 class="dsh-panel-title" style="font-size:.95rem">Pendapatan 6 bulan terakhir</h3>
+    <div class="keu-chart" role="img" aria-label="Grafik pendapatan 6 bulan terakhir">
+      ${bulan.map((b) => `<div class="keu-col"><span class="keu-val">${b.total ? ringkasUang(b.total) : ""}</span>
+        <div class="keu-bar" style="height:${Math.max(b.total ? 6 : 2, Math.round((b.total / maks) * 100))}%"></div><span class="keu-lbl">${b.label}</span></div>`).join("")}
+    </div>
+    <h3 class="dsh-panel-title" style="font-size:.95rem;margin-top:22px">Riwayat transaksi</h3>
+    ${transaksi.length
+      ? `<div class="adm-scroll"><table class="adm-tabel"><thead><tr><th>Tanggal</th><th>Kos</th><th>Pemilik</th><th>Paket</th><th>Nominal</th><th>Status</th></tr></thead><tbody>${baris}</tbody></table></div>`
+      : '<p class="dash-empty">Belum ada transaksi.</p>'}`;
+}
+
 // ---------- Pemuatan & tab ----------
 async function muatKos() {
   kos = await Admin.semuaKos();
@@ -148,6 +206,7 @@ async function tampil() {
     await muatKos(); // selalu dimuat agar kartu statistik dan lencana antrean terbaru
     if (tab === "antrean") panelAntrean();
     else if (tab === "kos") panelKos();
+    else if (tab === "keuangan") { transaksi = await Pembayaran.semua(); panelKeuangan(); }
     else { fasilitas = await Admin.daftarFasilitas(); panelFasilitas(); }
   } catch (err) {
     $("#panel").innerHTML = "";
@@ -163,7 +222,13 @@ async function jalankan(aksi, id, elemen) {
   try {
     if (aksi === "setujui") {
       await Admin.setujui(id);
-      notif("Kos disetujui dan sekarang tayang di situs.");
+      await muatKos();
+      const baru = kos.find((x) => String(x.id) === String(id));
+      notif(
+        baru && baru.status === "aktif"
+          ? "Kos disetujui dan sekarang tayang di situs."
+          : "Kos disetujui. Menunggu pembayaran biaya publikasi dari pemilik.",
+      );
     } else if (aksi === "tolak") {
       const k = kos.find((x) => String(x.id) === String(id));
       tolakId = id;
