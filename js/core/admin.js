@@ -50,6 +50,14 @@ const Admin = {
     return Owner.hapus(id); // juga membersihkan file foto di Storage
   },
 
+  // ---------- Pengguna (hanya untuk statistik) ----------
+  // Mengembalikan daftar { role }. Jika admin tidak diizinkan membaca profil, hasilnya null
+  // supaya halaman Home tetap tampil tanpa kartu pengguna.
+  async ringkasPengguna() {
+    const { data, error } = await db.from("profiles").select("role");
+    return error ? null : data;
+  },
+
   // ---------- Fasilitas ----------
   async daftarFasilitas() {
     return cek(await db.from("fasilitas").select("id, nama, kategori, kos_fasilitas ( count )").order("kategori").order("nama"));

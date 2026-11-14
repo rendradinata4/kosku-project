@@ -27,10 +27,12 @@
         <a class="dsh-brand" href="index.html"><img src="img/logo.png" alt="" width="34" height="34" /><b>Ruang<span>Nyaman</span></b></a>
         <p class="dsh-label">Menu utama</p>
         <nav class="dsh-nav" role="tablist">
-          <button type="button" class="dsh-link adm-tab active" data-tab="antrean"><span class="material-symbols-outlined">inbox</span>Antrean <span class="adm-count" id="cAntrean">0</span></button>
+          <button type="button" class="dsh-link adm-tab active" data-tab="home"><span class="material-symbols-outlined">dashboard</span>Home</button>
+          <button type="button" class="dsh-link adm-tab" data-tab="antrean"><span class="material-symbols-outlined">inbox</span>Antrean <span class="adm-count" id="cAntrean">0</span></button>
           <button type="button" class="dsh-link adm-tab" data-tab="kos"><span class="material-symbols-outlined">apartment</span>Semua Kos</button>
           <button type="button" class="dsh-link adm-tab" data-tab="fasilitas"><span class="material-symbols-outlined">deck</span>Fasilitas</button>
           <button type="button" class="dsh-link adm-tab" data-tab="keuangan"><span class="material-symbols-outlined">payments</span>Keuangan</button>
+          <button type="button" class="dsh-link adm-tab" data-tab="demo"><span class="material-symbols-outlined">terminal</span>Konsol Demo</button>
         </nav>
         <p class="dsh-label">Situs</p>
         <nav class="dsh-nav">
@@ -48,12 +50,13 @@
         <main class="dsh-page" id="app">
           <div class="dash-head">
             <div>
-              <h1>Ringkasan Admin</h1>
-              <p class="dash-sub">Periksa kos yang diajukan, kelola fasilitas, dan pantau keuangan.</p>
+              <h1 id="judulHalaman">Ringkasan Admin</h1>
+              <p class="dash-sub" id="subHalaman">Periksa kos yang diajukan, kelola fasilitas, dan pantau keuangan.</p>
             </div>
+            <span class="hm-tanggal" id="tglHariIni" hidden></span>
           </div>
 
-          <div class="stats">
+          <div class="stats" id="barStat">
             <div class="stat first">
               <div class="stat-top"><span class="stat-ic"><span class="material-symbols-outlined">apartment</span></span><div><p class="stat-t">Total Kos</p><p class="stat-s">Semua pengajuan</p></div></div>
               <p class="stat-n sk" id="sTotal">0</p>
@@ -73,7 +76,7 @@
           </div>
 
           <p class="dash-notif" id="notif" role="status" hidden></p>
-          <section class="dsh-panel">
+          <section class="dsh-panel" id="kotakPanel">
             <div id="panel"><div class="sk-table" aria-hidden="true"><span class="sk"></span><span class="sk"></span><span class="sk"></span><span class="sk"></span><span class="sk"></span></div></div>
           </section>
         </main>
@@ -97,6 +100,7 @@
     <script src="js/core/auth.js"></script>
     <script src="js/core/owner.js"></script>
     <script src="js/core/pembayaran.js"></script>
+    <script src="js/core/grafik.js"></script>
     <script src="js/core/admin.js"></script>
     <script src="js/pages/admin.js"></script>
   </body>

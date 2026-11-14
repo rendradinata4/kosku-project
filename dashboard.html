@@ -27,7 +27,8 @@
         <a class="dsh-brand" href="index.html"><img src="img/logo.png" alt="" width="34" height="34" /><b>Ruang<span>Nyaman</span></b></a>
         <p class="dsh-label">Menu utama</p>
         <nav class="dsh-nav">
-          <a class="dsh-link active" href="dashboard.html"><span class="material-symbols-outlined">dashboard</span>Dashboard</a>
+          <button type="button" class="dsh-link own-tab active" data-tab="home"><span class="material-symbols-outlined">dashboard</span>Home</button>
+          <button type="button" class="dsh-link own-tab" data-tab="kos"><span class="material-symbols-outlined">apartment</span>Kos Saya <span class="adm-count" id="cPerlu" hidden>0</span></button>
           <a class="dsh-link" href="form-kos.html"><span class="material-symbols-outlined">add_home</span>Tambah Kos</a>
         </nav>
         <p class="dsh-label">Situs</p>
@@ -46,13 +47,13 @@
         <main class="dsh-page" id="app">
           <div class="dash-head">
             <div>
-              <h1>Ringkasan Kos</h1>
+              <h1 id="judulHalaman">Selamat datang</h1>
               <p class="dash-sub" id="ringkasan">Memuat…</p>
             </div>
             <a class="dash-btn" href="form-kos.html">+ Tambah Kos</a>
           </div>
 
-          <div class="stats">
+          <div class="stats" id="barStat" hidden>
             <div class="stat first">
               <div class="stat-top"><span class="stat-ic"><span class="material-symbols-outlined">apartment</span></span><div><p class="stat-t">Total Kos</p><p class="stat-s">Semua kos Anda</p></div></div>
               <p class="stat-n sk" id="sTotal">0</p>
@@ -72,7 +73,8 @@
           </div>
 
           <p class="dash-notif" id="notif" role="status" hidden></p>
-          <section class="dsh-panel">
+          <div id="panelHome"><div class="sk-table" aria-hidden="true"><span class="sk"></span><span class="sk"></span><span class="sk"></span><span class="sk"></span><span class="sk"></span></div></div>
+          <section class="dsh-panel" id="kotakKos" hidden>
             <h2 class="dsh-panel-title">Kos Saya</h2>
             <div class="dash-list" id="daftar"><div class="sk-item"><div class="sk sk-thumb"></div><div><span class="sk sk-line lg" style="width: 45%"></span><span class="sk sk-line" style="width: 30%"></span><span class="sk sk-line" style="width: 60%"></span></div></div><div class="sk-item"><div class="sk sk-thumb"></div><div><span class="sk sk-line lg" style="width: 45%"></span><span class="sk sk-line" style="width: 30%"></span><span class="sk sk-line" style="width: 60%"></span></div></div></div>
           </section>
@@ -116,6 +118,7 @@
     <script src="js/core/auth.js"></script>
     <script src="js/core/owner.js"></script>
     <script src="js/core/pembayaran.js"></script>
+    <script src="js/core/grafik.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="js/pages/dashboard.js"></script>
   </body>
